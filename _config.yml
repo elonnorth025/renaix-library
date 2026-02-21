@@ -1,0 +1,10 @@
+title: Renaix Library
+description: Renaix 公司知识库
+theme: jekyll-theme-cayman
+
+markdown: kramdown
+highlighter: rouge
+
+exclude:
+  - .obsidian/
+  - "*.lock"
