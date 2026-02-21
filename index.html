@@ -1,243 +1,544 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>Renaix Library</title>
-  <meta name="description" content="Renaix 公司知识库">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renaix Library</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Telegram Mini App SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    // 清除 Telegram 注入的 hash 参数
-    (function () {
-      var hash = window.location.hash || '';
-      if (hash.includes('tgWebApp')) {
-        history.replaceState(null, '', window.location.pathname + window.location.search);
-      }
-    })();
-  </script>
+:root {
+  --accent: #1a56db;
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --tab-h: 60px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
 
-  <!-- Docsify Themeable -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+html, body {
+  height: 100%;
+  background: var(--bg);
+  font-family: -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
 
-  <style>
-    :root {
-      --theme-color: #0f3460;
-      --base-font-size: 15px;
-      --base-line-height: 1.7;
-      --sidebar-width: 260px;
-      --sidebar-background: #fafafa;
-      --sidebar-border-color: #e8e8e8;
-      --sidebar-nav-link-color--active: #0f3460;
-      --sidebar-nav-link-color--hover: #0f3460;
-      --sidebar-nav-link-border-color--active: #0f3460;
-      --link-color: #0f3460;
-      --link-text-decoration: none;
-      --heading-h1-font-size: 2em;
-      --heading-h2-font-size: 1.5em;
-      --code-theme-background: #f6f8fa;
-      --code-block-border-radius: 8px;
-      --table-cell-padding: 10px 16px;
-    }
+/* ── Layout ── */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-    body {
-      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
+#top-bar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px 10px;
+  flex-shrink: 0;
+}
 
-    .github-corner { display: none !important; }
-    .markdown-section { max-width: 780px; padding: 30px 40px; }
-    .search input { border-radius: 20px; background: #f0f0f0; border: none; padding: 6px 16px; }
-    pre { border-radius: 8px; }
-    table { border-collapse: collapse; width: 100%; }
-    table th { background: #f6f8fa; }
+#top-bar h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
 
-    /* ── Tab Bar ── */
-    #tab-bar {
-      display: none;
-      position: fixed !important;
-      bottom: 0 !important;
-      top: auto !important;
-      left: 0 !important;
-      right: 0 !important;
-      width: 100% !important;
-      height: calc(56px + env(safe-area-inset-bottom));
-      padding-bottom: env(safe-area-inset-bottom);
-      background: #fff;
-      border-top: 1px solid #e8e8e8;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-      z-index: 99999 !important;
-      flex-direction: row;
-      transform: translateZ(0); /* 强制 GPU 层，避免 transform 污染 */
-    }
-    .tab-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      color: #aaa;
-      font-size: 10px;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: color 0.15s;
-      border: none;
-      background: none;
-      padding: 0;
-    }
-    .tab-item.active { color: #0f3460; }
-    .tab-item .tab-icon { font-size: 22px; line-height: 1; }
+#top-bar .subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
 
-    /* 移动端布局 */
-    body.mobile-view .sidebar { display: none !important; }
-    body.mobile-view .content { left: 0 !important; }
-    body.mobile-view .markdown-section { padding: 16px !important; }
-    body.mobile-view #tab-bar { display: flex; }
-    body.mobile-view section.cover { padding-bottom: 70px; }
+#content-area {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
 
-    /* 内容底部留出 tab bar 空间 */
-    body.mobile-view .content { padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
-  </style>
+/* ── Tab Bar ── */
+#tab-bar {
+  display: flex;
+  flex-shrink: 0;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding-bottom: var(--safe-bottom);
+  height: calc(var(--tab-h) + var(--safe-bottom));
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 6px 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s;
+  letter-spacing: 0.2px;
+}
+.tab .icon { font-size: 22px; line-height: 1; }
+.tab.active { color: var(--accent); }
+
+/* ── List View ── */
+.list-header {
+  padding: 20px 16px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.file-list { padding: 0 12px; }
+
+.file-item {
+  display: flex;
+  align-items: center;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.file-item:active { background: #f0f4ff; }
+
+.file-item .fi-icon {
+  font-size: 20px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.file-item .fi-info { flex: 1; min-width: 0; }
+.file-item .fi-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+.file-item .fi-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.file-item .fi-arrow {
+  color: #d1d5db;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* ── Article View ── */
+#article-view {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  background: var(--card);
+  z-index: 100;
+}
+
+#article-view.open { display: flex; }
+
+#article-nav {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  flex-shrink: 0;
+}
+
+#back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#article-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-left: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#article-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 16px 40px;
+}
+
+/* ── Markdown Styles ── */
+#article-body h1 { font-size: 22px; font-weight: 800; margin: 0 0 16px; line-height: 1.3; }
+#article-body h2 { font-size: 18px; font-weight: 700; margin: 24px 0 10px; color: #1e293b; }
+#article-body h3 { font-size: 15px; font-weight: 700; margin: 18px 0 8px; color: #374151; }
+#article-body p  { font-size: 14px; line-height: 1.7; margin: 0 0 12px; color: #374151; }
+#article-body ul, #article-body ol { padding-left: 20px; margin: 0 0 12px; }
+#article-body li { font-size: 14px; line-height: 1.7; margin-bottom: 4px; color: #374151; }
+#article-body a  { color: var(--accent); text-decoration: none; }
+#article-body code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: "SF Mono", Menlo, monospace;
+}
+#article-body pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 14px;
+  border-radius: 10px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+#article-body pre code { background: none; color: inherit; padding: 0; font-size: 12px; }
+#article-body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 8px 12px;
+  background: #eff6ff;
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  color: #374151;
+  font-size: 14px;
+}
+#article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+#article-body th {
+  background: #f8fafc;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+}
+#article-body td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+#article-body hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* ── Home ── */
+.home-hero {
+  margin: 16px 12px;
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  border-radius: 16px;
+  padding: 24px 20px;
+  color: #fff;
+}
+.home-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.home-hero p  { font-size: 13px; opacity: 0.75; line-height: 1.5; }
+
+.home-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0 12px 16px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.stat-card .num { font-size: 28px; font-weight: 800; color: var(--accent); }
+.stat-card .label { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+
+.quick-links { padding: 0 12px 16px; }
+.quick-link-item {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-link-item:active { background: #f0f4ff; }
+.quick-link-item .ql-icon { font-size: 24px; margin-right: 12px; }
+.quick-link-item .ql-text .ql-title { font-size: 14px; font-weight: 700; }
+.quick-link-item .ql-text .ql-desc  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.quick-link-item .ql-arrow { margin-left: auto; color: #d1d5db; }
+</style>
 </head>
-
 <body>
-  <div id="app">加载中…</div>
 
-  <!-- 底部 Tab Bar -->
+<div id="app">
+  <!-- Top bar -->
+  <div id="top-bar">
+    <h1 id="page-title">🧭 Renaix</h1>
+    <div class="subtitle" id="page-subtitle">公司知识库</div>
+  </div>
+
+  <!-- Main content -->
+  <div id="content-area"></div>
+
+  <!-- Tab bar -->
   <nav id="tab-bar">
-    <button class="tab-item active" data-path="/" onclick="tabNav(this, '/')">
-      <span class="tab-icon">🏠</span><span>首页</span>
+    <button class="tab active" onclick="switchTab('home',this)">
+      <span class="icon">🏠</span>首页
     </button>
-    <button class="tab-item" data-path="/ideas/" onclick="tabNav(this, '/ideas/')">
-      <span class="tab-icon">💡</span><span>Ideas</span>
+    <button class="tab" onclick="switchTab('ideas',this)">
+      <span class="icon">💡</span>Ideas
     </button>
-    <button class="tab-item" data-path="/strategy/Two-Track-Strategy" onclick="tabNav(this, '/strategy/Two-Track-Strategy')">
-      <span class="tab-icon">📊</span><span>策略</span>
+    <button class="tab" onclick="switchTab('strategy',this)">
+      <span class="icon">📊</span>策略
     </button>
-    <button class="tab-item" data-path="/research/" onclick="tabNav(this, '/research/')">
-      <span class="tab-icon">🔬</span><span>研究</span>
+    <button class="tab" onclick="switchTab('research',this)">
+      <span class="icon">🔬</span>研究
     </button>
-    <button class="tab-item" data-path="/learning/" onclick="tabNav(this, '/learning/')">
-      <span class="tab-icon">📚</span><span>学习</span>
+    <button class="tab" onclick="switchTab('learning',this)">
+      <span class="icon">📚</span>学习
     </button>
   </nav>
+</div>
 
-  <script>
-    // 检测是否为移动端或 Telegram Mini App
-    function isMobile() {
-      return window.innerWidth <= 900
-        || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
-        || (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== '');
-    }
+<!-- Article overlay -->
+<div id="article-view">
+  <div id="article-nav">
+    <button id="back-btn" onclick="closeArticle()">‹ 返回</button>
+    <div id="article-title"></div>
+  </div>
+  <div id="article-body"></div>
+</div>
 
-    function applyMobileView() {
-      if (isMobile()) {
-        document.body.classList.add('mobile-view');
-      } else {
-        document.body.classList.remove('mobile-view');
+<script>
+// Telegram init
+if (window.Telegram?.WebApp) {
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand();
+}
+
+const BASE = location.pathname.replace(/\/$/, '');
+
+// ── File data per tab ──
+const TABS = {
+  home: { title: '🧭 Renaix', subtitle: '公司知识库' },
+  ideas: {
+    title: '💡 Ideas', subtitle: 'AI 岗位替代 Startup Ideas',
+    path: 'ideas',
+    files: [] // loaded dynamically from sidebar
+  },
+  strategy: {
+    title: '📊 策略', subtitle: 'GTM · 定价 · 市场',
+    path: 'strategy',
+    files: [
+      { name: 'Two-Track Strategy', file: 'strategy/Two-Track-Strategy.md', icon: '🎯' },
+      { name: 'Blue Collar AI Thesis', file: 'strategy/Blue-Collar-Tech-AI-Thesis.md', icon: '🏭' },
+      { name: 'GTM 分析', file: 'strategy/2026-02-07-GTM-Critical-Analysis.md', icon: '📈' },
+      { name: 'AI 岗位替代方法论', file: 'strategy/AI岗位替代方法论.md', icon: '🤖' },
+      { name: 'Drucker 黑箱论文', file: 'strategy/Drucker-Black-Box-Blue-Collar-Thesis.md', icon: '📖' },
+      { name: '2x2 Matrix', file: 'strategy/2x2-Matrix-Blue-Collar-Agent.md', icon: '🔲' },
+      { name: 'Stateless & State', file: 'strategy/stateless-and-state.md', icon: '⚡' },
+    ]
+  },
+  research: {
+    title: '🔬 研究', subtitle: '市场 · 竞品 · 行业',
+    path: 'research',
+    files: [
+      { name: '达拉斯 GC 作战手册', file: 'research/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
+      { name: 'GC 发现访谈脚本', file: 'research/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
+      { name: 'GC 信任建立策略', file: 'research/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
+      { name: 'Track 1 竞品地图', file: 'research/2026-02-17-Track1-Competitor-Map.md', icon: '🗂' },
+      { name: '蓝海细分市场 Top20', file: 'research/Top-20-Blue-Ocean-Jobs.md', icon: '🌊' },
+      { name: '200 岗位 AI 替代分析', file: 'research/200-jobs-ai-replacement-analysis.md', icon: '📊' },
+      { name: 'NAICS 行业概览', file: 'research/NAICS-20-Sectors-Overview.md', icon: '🏭' },
+      { name: 'Indeed 职位分析', file: 'research/2026-02-08-Indeed-Job-Analysis.md', icon: '💼' },
+    ]
+  },
+  learning: {
+    title: '📚 学习', subtitle: 'CEO 技能 · 创业方法论',
+    path: 'learning',
+    files: [
+      { name: 'B2B 定价心理学', file: 'learning/2026-02-20-B2B服务定价心理学与早期定价策略.md', icon: '💰' },
+      { name: '创始人销售', file: 'learning/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '🤝' },
+      { name: '咨询到产品路径', file: 'learning/2026-02-18-咨询到产品的创业路径.md', icon: '🚀' },
+      { name: '首批客户获取', file: 'learning/2026-02-17-首批客户获取与发现访谈.md', icon: '🎯' },
+      { name: 'Elon Musk 框架', file: 'learning/Elon-Musk-Framework.md', icon: '⚡' },
+    ]
+  }
+};
+
+let currentTab = 'home';
+
+async function fetchMd(path) {
+  const url = BASE + '/' + path;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('404');
+  return r.text();
+}
+
+function openArticle(file, title) {
+  document.getElementById('article-title').textContent = title;
+  document.getElementById('article-body').innerHTML = '<p style="color:#999;padding:20px">加载中…</p>';
+  document.getElementById('article-view').classList.add('open');
+  fetchMd(file).then(md => {
+    document.getElementById('article-body').innerHTML = marked.parse(md);
+  }).catch(() => {
+    document.getElementById('article-body').innerHTML = '<p style="color:#ef4444;padding:20px">加载失败</p>';
+  });
+}
+
+function closeArticle() {
+  document.getElementById('article-view').classList.remove('open');
+}
+
+function renderFileList(files, tab) {
+  const area = document.getElementById('content-area');
+  area.innerHTML = `<div class="list-header">${TABS[tab].subtitle}</div><div class="file-list"></div>`;
+  const list = area.querySelector('.file-list');
+  files.forEach(f => {
+    const el = document.createElement('div');
+    el.className = 'file-item';
+    el.innerHTML = `
+      <span class="fi-icon">${f.icon || '📄'}</span>
+      <div class="fi-info">
+        <div class="fi-name">${f.name}</div>
+      </div>
+      <span class="fi-arrow">›</span>`;
+    el.onclick = () => openArticle(f.file, f.name);
+    list.appendChild(el);
+  });
+}
+
+async function renderIdeas() {
+  const area = document.getElementById('content-area');
+  area.innerHTML = '<div class="list-header">로딩중…</div>';
+  try {
+    const md = await fetchMd('ideas/README.md');
+    // parse sections from ideas README
+    const sections = [];
+    let current = null;
+    md.split('\n').forEach(line => {
+      if (line.startsWith('## ')) {
+        current = { title: line.replace('## ', ''), items: [] };
+        sections.push(current);
+      } else if (line.startsWith('* [') && current) {
+        const m = line.match(/\* \[(.+?)\]\((.+?)\)/);
+        if (m) current.items.push({ name: m[1], file: 'ideas/' + m[2] });
       }
-    }
-
-    // Telegram Mini App 初始化
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-    }
-
-    applyMobileView();
-    window.addEventListener('resize', applyMobileView);
-
-    // 确保 tab bar 是 body 的直接子元素（防止 Docsify 移动 DOM）
-    function ensureTabBarInBody() {
-      var bar = document.getElementById('tab-bar');
-      if (bar && bar.parentNode !== document.body) {
-        document.body.appendChild(bar);
-      }
-    }
-
-    // JS 强制定位到底部（兜底方案）
-    function forceTabBarBottom() {
-      var bar = document.getElementById('tab-bar');
-      if (!bar) return;
-      bar.style.setProperty('position', 'fixed', 'important');
-      bar.style.setProperty('bottom', '0', 'important');
-      bar.style.setProperty('top', 'auto', 'important');
-      bar.style.setProperty('left', '0', 'important');
-      bar.style.setProperty('right', '0', 'important');
-      bar.style.setProperty('z-index', '99999', 'important');
-    }
-
-    // Docsify 初始化后再强制定位
-    document.addEventListener('DOMContentLoaded', function() {
-      ensureTabBarInBody();
-      forceTabBarBottom();
     });
-    setTimeout(function() {
-      ensureTabBarInBody();
-      forceTabBarBottom();
-    }, 500);
-
-    // Tab Bar 导航
-    function tabNav(el, path) {
-      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-      window.location.hash = path;
-      window.scrollTo(0, 0);
-    }
-
-    // 同步 tab 高亮
-    function syncTabActive() {
-      var hash = (window.location.hash || '#/').replace(/^#/, '') || '/';
-      document.querySelectorAll('.tab-item').forEach(function(t) {
-        var path = t.getAttribute('data-path');
-        var isActive = (path === '/' && (hash === '/' || hash === ''))
-          || (path !== '/' && hash.startsWith(path));
-        t.classList.toggle('active', isActive);
+    area.innerHTML = '';
+    sections.forEach(s => {
+      const hdr = document.createElement('div');
+      hdr.className = 'list-header';
+      hdr.textContent = s.title;
+      area.appendChild(hdr);
+      const list = document.createElement('div');
+      list.className = 'file-list';
+      s.items.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'file-item';
+        el.innerHTML = `
+          <span class="fi-icon">💡</span>
+          <div class="fi-info"><div class="fi-name">${item.name}</div></div>
+          <span class="fi-arrow">›</span>`;
+        el.onclick = () => openArticle(item.file, item.name);
+        list.appendChild(el);
       });
-    }
-    window.addEventListener('hashchange', syncTabActive);
-    window.addEventListener('load', syncTabActive);
-  </script>
+      area.appendChild(list);
+    });
+  } catch(e) {
+    area.innerHTML = '<p style="padding:20px;color:#999">加载失败</p>';
+  }
+}
 
-  <script>
-    window.$docsify = {
-      name: '🧭 Renaix',
-      nameLink: '/',
-      repo: '',
-      loadSidebar: true,
-      loadNavbar: false,
-      subMaxLevel: 2,
-      auto2top: true,
-      homepage: 'README.md',
-      search: {
-        maxAge: 86400000,
-        paths: 'auto',
-        placeholder: '搜索知识库…',
-        noData: '没有找到结果',
-        depth: 3,
-      },
-      copyCode: {
-        buttonText: '复制',
-        errorText: '失败',
-        successText: '已复制'
-      },
-      themeColor: '#0f3460',
-      notFoundPage: true,
-    }
-  </script>
+function renderHome() {
+  document.getElementById('content-area').innerHTML = `
+    <div class="home-hero">
+      <h2>Renaix Library</h2>
+      <p>Renaissance + AI + X · AI-native 公司知识库<br>Founded 2026 · CEO Elon North 🧭</p>
+    </div>
+    <div class="home-stats">
+      <div class="stat-card"><div class="num">93</div><div class="label">IDEAS</div></div>
+      <div class="stat-card"><div class="num">3</div><div class="label">CLIENTS</div></div>
+      <div class="stat-card"><div class="num">7</div><div class="label">STRATEGY</div></div>
+      <div class="stat-card"><div class="num">8</div><div class="label">RESEARCH</div></div>
+    </div>
+    <div class="list-header">快速访问</div>
+    <div class="quick-links">
+      <div class="quick-link-item" onclick="switchTabByName('ideas')">
+        <span class="ql-icon">💡</span>
+        <div class="ql-text"><div class="ql-title">Ideas 全库</div><div class="ql-desc">93 个 AI 岗位替代 Startup Ideas</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+      <div class="quick-link-item" onclick="openArticle('ideas/GC-沟通协调-AI员工团队.md','GC 沟通协调 AI 员工团队')">
+        <span class="ql-icon">🏗</span>
+        <div class="ql-text"><div class="ql-title">GC 沟通协调 AI 团队</div><div class="ql-desc">当前首要产品方向</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+      <div class="quick-link-item" onclick="openArticle('Company-Timeline.md','公司时间线')">
+        <span class="ql-icon">🗓</span>
+        <div class="ql-text"><div class="ql-title">公司时间线</div><div class="ql-desc">Renaix 里程碑记录</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+      <div class="quick-link-item" onclick="switchTabByName('research')">
+        <span class="ql-icon">🗺</span>
+        <div class="ql-text"><div class="ql-title">达拉斯 GC 市场手册</div><div class="ql-desc">GTM 第一城市作战计划</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+    </div>`;
+}
 
-  <!-- Docsify core -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+function switchTabByName(name) {
+  const btn = document.querySelector(`.tab[onclick*="'${name}'"]`);
+  if (btn) switchTab(name, btn);
+}
+
+function switchTab(name, el) {
+  currentTab = name;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('article-view').classList.remove('open');
+
+  const t = TABS[name];
+  document.getElementById('page-title').textContent = t.title;
+  document.getElementById('page-subtitle').textContent = t.subtitle;
+
+  if (name === 'home') { renderHome(); return; }
+  if (name === 'ideas') { renderIdeas(); return; }
+  renderFileList(t.files, name);
+}
+
+// Init
+switchTab('home', document.querySelector('.tab.active'));
+</script>
 </body>
 </html>
