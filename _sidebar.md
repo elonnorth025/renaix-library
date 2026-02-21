@@ -1,0 +1,31 @@
+* [🏠 首页](/)
+
+**公司**
+* [🗓 公司时间线](Company-Timeline.md)
+* [📋 README](README.md)
+
+**策略**
+* [两条赛道战略](strategy/Two-Track-Strategy.md)
+* [蓝领 AI 论文](strategy/Blue-Collar-Tech-AI-Thesis.md)
+* [GTM 分析](strategy/2026-02-07-GTM-Critical-Analysis.md)
+* [AI 岗位替代方法论](strategy/AI岗位替代方法论.md)
+
+**客户**
+* [Supra Neuro](clients/001-supra-neuro/CLIENT.md)
+
+**💡 Ideas**
+* [全部 Ideas](ideas/)
+* [GC 沟通协调 AI 团队](ideas/GC-沟通协调-AI员工团队.md)
+* [AI 岗位替代核心框架](ideas/AI-岗位替代服务-核心框架.md)
+
+**研究**
+* [Track 1 竞品地图](research/2026-02-17-Track1-Competitor-Map.md)
+* [达拉斯 GC 市场手册](research/2026-02-20-德克萨斯州GC市场切入作战手册.md)
+* [GC 访谈脚本](research/2026-02-18-GC发现访谈脚本与冷外联手册.md)
+* [蓝海细分市场](research/Top-20-Blue-Ocean-Jobs.md)
+
+**学习**
+* [首批客户获取](learning/2026-02-17-首批客户获取与发现访谈.md)
+* [创始人销售](learning/2026-02-19-创始人主导销售与首批客户关闭.md)
+* [咨询到产品路径](learning/2026-02-18-咨询到产品的创业路径.md)
+* [Elon Musk 框架](learning/Elon-Musk-Framework.md)

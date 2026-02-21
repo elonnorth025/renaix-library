@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Renaix Library</title>
+  <meta name="description" content="Renaix 公司知识库">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+
+  <!-- Docsify Themeable -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+
+  <style>
+    :root {
+      --theme-color: #1a1a2e;
+      --base-font-size: 15px;
+      --base-line-height: 1.7;
+      --cover-background-color: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      --cover-heading-color: #fff;
+      --cover-text-color: rgba(255,255,255,0.8);
+      --sidebar-width: 260px;
+      --sidebar-background: #fafafa;
+      --sidebar-border-color: #e8e8e8;
+      --sidebar-nav-link-color--active: #0f3460;
+      --sidebar-nav-link-color--hover: #0f3460;
+      --sidebar-nav-link-border-color--active: #0f3460;
+      --link-color: #0f3460;
+      --link-text-decoration: none;
+      --navbar-background: #fff;
+      --navbar-border-color: #e8e8e8;
+      --heading-h1-font-size: 2em;
+      --heading-h2-font-size: 1.5em;
+      --code-theme-background: #f6f8fa;
+      --code-block-border-radius: 8px;
+      --border-radius-m: 6px;
+      --table-cell-padding: 10px 16px;
+    }
+
+    body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+    .app-name-link { font-weight: 700; font-size: 1.1em; letter-spacing: 0.5px; }
+    .app-name-link img { width: 24px; margin-right: 6px; vertical-align: middle; }
+
+    /* 侧边栏小节标题 */
+    .sidebar-nav > ul > li > p {
+      font-size: 0.7em;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #999;
+      margin: 20px 0 6px 0;
+      padding: 0;
+    }
+
+    /* 搜索框 */
+    .search input { border-radius: 20px; background: #f0f0f0; border: none; padding: 6px 16px; }
+
+    /* 代码块 */
+    pre { border-radius: 8px; }
+
+    /* 表格 */
+    table { border-collapse: collapse; width: 100%; }
+    table th { background: #f6f8fa; }
+
+    /* 内容区 */
+    .markdown-section { max-width: 780px; padding: 30px 40px; }
+
+    /* 无 GitHub 痕迹 */
+    .github-corner { display: none !important; }
+  </style>
+</head>
+
+<body>
+  <div id="app">加载中…</div>
+
+  <script>
+    window.$docsify = {
+      name: '🧭 Renaix',
+      nameLink: '/',
+      repo: '',                    // 不显示 GitHub 链接
+      loadSidebar: true,
+      loadNavbar: false,
+      subMaxLevel: 2,
+      auto2top: true,
+      homepage: 'README.md',
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索知识库…',
+        noData: '没有找到结果',
+        depth: 3,
+      },
+      copyCode: {
+        buttonText: '复制',
+        errorText: '失败',
+        successText: '已复制'
+      },
+      pagination: {
+        previousText: '← 上一页',
+        nextText: '下一页 →',
+        crossChapter: true,
+      },
+      count: {
+        countable: true,
+        position: 'top',
+        margin: '10px',
+        float: 'right',
+        language: 'chinese',
+        localization: { words: '', minute: ' 分钟' },
+        isExpected: true
+      },
+      tabs: { persist: true, sync: true },
+      themeColor: '#0f3460',
+      notFoundPage: true,
+    }
+  </script>
+
+  <!-- Docsify core -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <!-- Themeable -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+  <!-- Search -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <!-- Copy code -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  <!-- Pagination -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <!-- Zoom image -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  <!-- Prism syntax highlight -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+</body>
+</html>
