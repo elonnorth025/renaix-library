@@ -1,10 +1,27 @@
 title: Renaix Library
 description: Renaix 公司知识库
-theme: jekyll-theme-cayman
 
-markdown: kramdown
-highlighter: rouge
+remote_theme: just-the-docs/just-the-docs
 
+color_scheme: light
+
+# 关闭所有 GitHub 相关链接
+gh_edit_link: false
+github_repo: ""
+
+# 搜索
+search_enabled: true
+search_tokenizer_separator: /[\s\-/]+/
+
+# 导航
+nav_enabled: true
+
+# Footer
+footer_content: "© 2026 Renaix"
+
+# 不渲染这些文件夹
 exclude:
   - .obsidian/
+  - .git/
   - "*.lock"
+  - pipeline/
