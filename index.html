@@ -78,18 +78,93 @@
 
     /* 无 GitHub 痕迹 */
     .github-corner { display: none !important; }
+
+    /* ── 底部 Tab Bar ── */
+    #tab-bar {
+      display: none; /* 桌面隐藏，移动端通过 media query 开启 */
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 56px;
+      background: #fff;
+      border-top: 1px solid #e8e8e8;
+      z-index: 9999;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      color: #999;
+      font-size: 10px;
+      font-weight: 500;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s;
+    }
+    .tab-item.active { color: #0f3460; }
+    .tab-item .tab-icon { font-size: 20px; line-height: 1; }
+
+    /* 手机端：隐藏侧边栏，内容全宽，底部留空 */
+    @media (max-width: 768px) {
+      .sidebar { display: none !important; }
+      .content { left: 0 !important; padding-bottom: 70px !important; }
+      .markdown-section { padding: 20px 16px !important; }
+      #tab-bar { display: flex; }
+    }
   </style>
 </head>
 
 <body>
   <div id="app">加载中…</div>
 
+  <!-- 底部 Tab Bar -->
+  <nav id="tab-bar">
+    <a class="tab-item active" data-path="/" onclick="tabNav(this, '/')">
+      <span class="tab-icon">🏠</span>首页
+    </a>
+    <a class="tab-item" data-path="/ideas/" onclick="tabNav(this, '/ideas/')">
+      <span class="tab-icon">💡</span>Ideas
+    </a>
+    <a class="tab-item" data-path="/strategy/Two-Track-Strategy" onclick="tabNav(this, '/strategy/Two-Track-Strategy')">
+      <span class="tab-icon">📊</span>策略
+    </a>
+    <a class="tab-item" data-path="/research/2026-02-20-德克萨斯州GC市场切入作战手册" onclick="tabNav(this, '/research/2026-02-20-德克萨斯州GC市场切入作战手册')">
+      <span class="tab-icon">🔬</span>研究
+    </a>
+    <a class="tab-item" data-path="/learning/2026-02-19-创始人主导销售与首批客户关闭" onclick="tabNav(this, '/learning/2026-02-19-创始人主导销售与首批客户关闭')">
+      <span class="tab-icon">📚</span>学习
+    </a>
+  </nav>
+
   <script>
     // Telegram Mini App 初始化
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand(); // 全屏展开
+      window.Telegram.WebApp.expand();
     }
+
+    // Tab Bar 导航
+    function tabNav(el, path) {
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      window.location.hash = path;
+    }
+
+    // 监听 hash 变化，同步 tab 高亮
+    function syncTabActive() {
+      var hash = (window.location.hash || '#/').replace('#', '') || '/';
+      document.querySelectorAll('.tab-item').forEach(function(t) {
+        var path = t.getAttribute('data-path');
+        var isActive = hash === path || (path !== '/' && hash.startsWith(path));
+        t.classList.toggle('active', isActive);
+      });
+    }
+    window.addEventListener('hashchange', syncTabActive);
+    window.addEventListener('load', syncTabActive);
   </script>
 
   <script>
