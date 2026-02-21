@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "7574d33d238dd10c",
+    "type": "split",
+    "children": [
+      {
+        "id": "a79f9fca3cf03f89",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "70055147501139a9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "clients/001-supra-neuro/client-profile.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "client-profile"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd5d125bf850b5a7",
+    "type": "split",
+    "children": [
+      {
+        "id": "6953d9107f66c901",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "191661b1a19b0436",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "530753ee292e332a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "90a33a973055072e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "aeb4c54757341ed6",
+    "type": "split",
+    "children": [
+      {
+        "id": "0a31313b57f033e5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4f81657718a8f8ae",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for README"
+            }
+          },
+          {
+            "id": "522d4c47810694f6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from README"
+            }
+          },
+          {
+            "id": "5002e1cc9bc30918",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "0ced30354b76fffc",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "a15fe755f7d6bc28",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "191661b1a19b0436",
+  "lastOpenFiles": [
+    "ideas/STR-Permit-Compliance-Coordinator.md",
+    "ideas/GC-沟通协调-AI员工团队.md",
+    "learning/2026-02-17-首批客户获取与发现访谈.md",
+    "research/2026-02-17-Track1-Competitor-Map.md",
+    "ideas/Subcontractor-Lien-Waiver-Coordinator.md",
+    "ideas/HVAC-旺季前获客.md",
+    "ideas/Solo-HVAC-老板-AI-助手.md",
+    "ideas/Texas-HVAC-差评切入获客.md",
+    "strategy/Two-Track-Strategy.md",
+    "clients/001-supra-neuro/CLIENT.md",
+    "clients/001-supra-neuro/AGENT.md",
+    "clients/001-supra-neuro/05-small-client-needs-pattern.md",
+    "clients/001-supra-neuro/04-client-requirements-analysis.md",
+    "clients/001-supra-neuro/03-website-design-references.md",
+    "ideas/施工图生成-Permit-Drawing.md",
+    "ideas/DevOps-On-Call-AI-Engineer.md",
+    "ideas/FDAOSHA-合规报告生成.md",
+    "ideas/AI-Agent-Marketplace.md",
+    "README.md",
+    "Company-Timeline.md",
+    "strategy/Drucker-Black-Box-Blue-Collar-Thesis.md",
+    "strategy/Blue-Collar-Tech-AI-Thesis.md",
+    "strategy/AI岗位替代方法论.md",
+    "strategy/2026-02-07-GTM-Critical-Analysis.md",
+    "strategy/2x2-Matrix-Blue-Collar-Agent.md",
+    "research/US-Industry-Workers-Output-Map.md",
+    "clients/001-supra-neuro/notes",
+    "clients/001-supra-neuro/contracts",
+    "clients/001-supra-neuro/assets",
+    "clients/001-supra-neuro",
+    "clients",
+    "Untitled.canvas"
+  ]
+}
