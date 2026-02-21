@@ -56,15 +56,20 @@
     /* ── Tab Bar ── */
     #tab-bar {
       display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
+      position: fixed !important;
+      bottom: 0 !important;
+      top: auto !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
       height: calc(56px + env(safe-area-inset-bottom));
       padding-bottom: env(safe-area-inset-bottom);
       background: #fff;
       border-top: 1px solid #e8e8e8;
       box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-      z-index: 9999;
+      z-index: 99999 !important;
       flex-direction: row;
+      transform: translateZ(0); /* 强制 GPU 层，避免 transform 污染 */
     }
     .tab-item {
       flex: 1;
@@ -145,6 +150,36 @@
 
     applyMobileView();
     window.addEventListener('resize', applyMobileView);
+
+    // 确保 tab bar 是 body 的直接子元素（防止 Docsify 移动 DOM）
+    function ensureTabBarInBody() {
+      var bar = document.getElementById('tab-bar');
+      if (bar && bar.parentNode !== document.body) {
+        document.body.appendChild(bar);
+      }
+    }
+
+    // JS 强制定位到底部（兜底方案）
+    function forceTabBarBottom() {
+      var bar = document.getElementById('tab-bar');
+      if (!bar) return;
+      bar.style.setProperty('position', 'fixed', 'important');
+      bar.style.setProperty('bottom', '0', 'important');
+      bar.style.setProperty('top', 'auto', 'important');
+      bar.style.setProperty('left', '0', 'important');
+      bar.style.setProperty('right', '0', 'important');
+      bar.style.setProperty('z-index', '99999', 'important');
+    }
+
+    // Docsify 初始化后再强制定位
+    document.addEventListener('DOMContentLoaded', function() {
+      ensureTabBarInBody();
+      forceTabBarBottom();
+    });
+    setTimeout(function() {
+      ensureTabBarInBody();
+      forceTabBarBottom();
+    }, 500);
 
     // Tab Bar 导航
     function tabNav(el, path) {
