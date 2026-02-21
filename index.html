@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <title>Renaix Library</title>
   <meta name="description" content="Renaix 公司知识库">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+
   <!-- Telegram Mini App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // 清除 Telegram 注入的 hash 参数，防止 Docsify 路由出错
+    // 清除 Telegram 注入的 hash 参数
     (function () {
       var hash = window.location.hash || '';
       if (hash.includes('tgWebApp')) {
@@ -23,12 +24,9 @@
 
   <style>
     :root {
-      --theme-color: #1a1a2e;
+      --theme-color: #0f3460;
       --base-font-size: 15px;
       --base-line-height: 1.7;
-      --cover-background-color: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      --cover-heading-color: #fff;
-      --cover-text-color: rgba(255,255,255,0.8);
       --sidebar-width: 260px;
       --sidebar-background: #fafafa;
       --sidebar-border-color: #e8e8e8;
@@ -37,58 +35,36 @@
       --sidebar-nav-link-border-color--active: #0f3460;
       --link-color: #0f3460;
       --link-text-decoration: none;
-      --navbar-background: #fff;
-      --navbar-border-color: #e8e8e8;
       --heading-h1-font-size: 2em;
       --heading-h2-font-size: 1.5em;
       --code-theme-background: #f6f8fa;
       --code-block-border-radius: 8px;
-      --border-radius-m: 6px;
       --table-cell-padding: 10px 16px;
     }
 
-    body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-
-    .app-name-link { font-weight: 700; font-size: 1.1em; letter-spacing: 0.5px; }
-    .app-name-link img { width: 24px; margin-right: 6px; vertical-align: middle; }
-
-    /* 侧边栏小节标题 */
-    .sidebar-nav > ul > li > p {
-      font-size: 0.7em;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #999;
-      margin: 20px 0 6px 0;
-      padding: 0;
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    /* 搜索框 */
+    .github-corner { display: none !important; }
+    .markdown-section { max-width: 780px; padding: 30px 40px; }
     .search input { border-radius: 20px; background: #f0f0f0; border: none; padding: 6px 16px; }
-
-    /* 代码块 */
     pre { border-radius: 8px; }
-
-    /* 表格 */
     table { border-collapse: collapse; width: 100%; }
     table th { background: #f6f8fa; }
 
-    /* 内容区 */
-    .markdown-section { max-width: 780px; padding: 30px 40px; }
-
-    /* 无 GitHub 痕迹 */
-    .github-corner { display: none !important; }
-
-    /* ── 底部 Tab Bar ── */
+    /* ── Tab Bar ── */
     #tab-bar {
-      display: none; /* 桌面隐藏，移动端通过 media query 开启 */
+      display: none;
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 56px;
+      height: calc(56px + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
       background: #fff;
       border-top: 1px solid #e8e8e8;
-      z-index: 9999;
       box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      z-index: 9999;
+      flex-direction: row;
     }
     .tab-item {
       flex: 1;
@@ -96,25 +72,30 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
-      cursor: pointer;
-      color: #999;
+      gap: 3px;
+      color: #aaa;
       font-size: 10px;
       font-weight: 500;
       text-decoration: none;
+      cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       transition: color 0.15s;
+      border: none;
+      background: none;
+      padding: 0;
     }
     .tab-item.active { color: #0f3460; }
-    .tab-item .tab-icon { font-size: 20px; line-height: 1; }
+    .tab-item .tab-icon { font-size: 22px; line-height: 1; }
 
-    /* 手机端：隐藏侧边栏，内容全宽，底部留空 */
-    @media (max-width: 768px) {
-      .sidebar { display: none !important; }
-      .content { left: 0 !important; padding-bottom: 70px !important; }
-      .markdown-section { padding: 20px 16px !important; }
-      #tab-bar { display: flex; }
-    }
+    /* 移动端布局 */
+    body.mobile-view .sidebar { display: none !important; }
+    body.mobile-view .content { left: 0 !important; }
+    body.mobile-view .markdown-section { padding: 16px !important; }
+    body.mobile-view #tab-bar { display: flex; }
+    body.mobile-view section.cover { padding-bottom: 70px; }
+
+    /* 内容底部留出 tab bar 空间 */
+    body.mobile-view .content { padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
   </style>
 </head>
 
@@ -123,43 +104,63 @@
 
   <!-- 底部 Tab Bar -->
   <nav id="tab-bar">
-    <a class="tab-item active" data-path="/" onclick="tabNav(this, '/')">
-      <span class="tab-icon">🏠</span>首页
-    </a>
-    <a class="tab-item" data-path="/ideas/" onclick="tabNav(this, '/ideas/')">
-      <span class="tab-icon">💡</span>Ideas
-    </a>
-    <a class="tab-item" data-path="/strategy/Two-Track-Strategy" onclick="tabNav(this, '/strategy/Two-Track-Strategy')">
-      <span class="tab-icon">📊</span>策略
-    </a>
-    <a class="tab-item" data-path="/research/2026-02-20-德克萨斯州GC市场切入作战手册" onclick="tabNav(this, '/research/2026-02-20-德克萨斯州GC市场切入作战手册')">
-      <span class="tab-icon">🔬</span>研究
-    </a>
-    <a class="tab-item" data-path="/learning/2026-02-19-创始人主导销售与首批客户关闭" onclick="tabNav(this, '/learning/2026-02-19-创始人主导销售与首批客户关闭')">
-      <span class="tab-icon">📚</span>学习
-    </a>
+    <button class="tab-item active" data-path="/" onclick="tabNav(this, '/')">
+      <span class="tab-icon">🏠</span><span>首页</span>
+    </button>
+    <button class="tab-item" data-path="/ideas/" onclick="tabNav(this, '/ideas/')">
+      <span class="tab-icon">💡</span><span>Ideas</span>
+    </button>
+    <button class="tab-item" data-path="/strategy/Two-Track-Strategy" onclick="tabNav(this, '/strategy/Two-Track-Strategy')">
+      <span class="tab-icon">📊</span><span>策略</span>
+    </button>
+    <button class="tab-item" data-path="/research/" onclick="tabNav(this, '/research/')">
+      <span class="tab-icon">🔬</span><span>研究</span>
+    </button>
+    <button class="tab-item" data-path="/learning/" onclick="tabNav(this, '/learning/')">
+      <span class="tab-icon">📚</span><span>学习</span>
+    </button>
   </nav>
 
   <script>
+    // 检测是否为移动端或 Telegram Mini App
+    function isMobile() {
+      return window.innerWidth <= 900
+        || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+        || (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== '');
+    }
+
+    function applyMobileView() {
+      if (isMobile()) {
+        document.body.classList.add('mobile-view');
+      } else {
+        document.body.classList.remove('mobile-view');
+      }
+    }
+
     // Telegram Mini App 初始化
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
     }
 
+    applyMobileView();
+    window.addEventListener('resize', applyMobileView);
+
     // Tab Bar 导航
     function tabNav(el, path) {
       document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
       el.classList.add('active');
       window.location.hash = path;
+      window.scrollTo(0, 0);
     }
 
-    // 监听 hash 变化，同步 tab 高亮
+    // 同步 tab 高亮
     function syncTabActive() {
-      var hash = (window.location.hash || '#/').replace('#', '') || '/';
+      var hash = (window.location.hash || '#/').replace(/^#/, '') || '/';
       document.querySelectorAll('.tab-item').forEach(function(t) {
         var path = t.getAttribute('data-path');
-        var isActive = hash === path || (path !== '/' && hash.startsWith(path));
+        var isActive = (path === '/' && (hash === '/' || hash === ''))
+          || (path !== '/' && hash.startsWith(path));
         t.classList.toggle('active', isActive);
       });
     }
@@ -171,7 +172,7 @@
     window.$docsify = {
       name: '🧭 Renaix',
       nameLink: '/',
-      repo: '',                    // 不显示 GitHub 链接
+      repo: '',
       loadSidebar: true,
       loadNavbar: false,
       subMaxLevel: 2,
@@ -189,21 +190,6 @@
         errorText: '失败',
         successText: '已复制'
       },
-      pagination: {
-        previousText: '← 上一页',
-        nextText: '下一页 →',
-        crossChapter: true,
-      },
-      count: {
-        countable: true,
-        position: 'top',
-        margin: '10px',
-        float: 'right',
-        language: 'chinese',
-        localization: { words: '', minute: ' 分钟' },
-        isExpected: true
-      },
-      tabs: { persist: true, sync: true },
       themeColor: '#0f3460',
       notFoundPage: true,
     }
@@ -211,17 +197,10 @@
 
   <!-- Docsify core -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <!-- Themeable -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
-  <!-- Search -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-  <!-- Copy code -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
-  <!-- Pagination -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-  <!-- Zoom image -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
-  <!-- Prism syntax highlight -->
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
