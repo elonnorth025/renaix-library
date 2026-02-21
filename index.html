@@ -6,6 +6,17 @@
   <meta name="description" content="Renaix 公司知识库">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+  <!-- Telegram Mini App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    // 清除 Telegram 注入的 hash 参数，防止 Docsify 路由出错
+    (function () {
+      var hash = window.location.hash || '';
+      if (hash.includes('tgWebApp')) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    })();
+  </script>
 
   <!-- Docsify Themeable -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
@@ -72,6 +83,14 @@
 
 <body>
   <div id="app">加载中…</div>
+
+  <script>
+    // Telegram Mini App 初始化
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand(); // 全屏展开
+    }
+  </script>
 
   <script>
     window.$docsify = {
