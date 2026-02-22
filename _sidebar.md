@@ -19,13 +19,19 @@
 * [AI 岗位替代核心框架](ideas/AI-岗位替代服务-核心框架.md)
 
 **研究**
-* [Track 1 竞品地图](research/2026-02-17-Track1-Competitor-Map.md)
+* [GC 十大具体痛点 × AI 机会](research/2026-02-21-GC十大具体痛点与AI产品机会.md)
+* [GC 项目全生命周期拆解](research/2026-02-21-GC项目全生命周期与AI自动化机会.md)
+* [CrossBeam 竞品深度调研](research/2026-02-21-crossbeam-competitor-watch.md)
+* [GC 供应商渠道获客战略](research/2026-02-21-GC供应商渠道与行业协会获客战略.md)
 * [达拉斯 GC 市场手册](research/2026-02-20-德克萨斯州GC市场切入作战手册.md)
 * [GC 访谈脚本](research/2026-02-18-GC发现访谈脚本与冷外联手册.md)
+* [Track 1 竞品地图](research/2026-02-17-Track1-Competitor-Map.md)
 * [蓝海细分市场](research/Top-20-Blue-Ocean-Jobs.md)
 
 **学习**
-* [首批客户获取](learning/2026-02-17-首批客户获取与发现访谈.md)
+* [产品范围控制与焦点纪律](learning/2026-02-21-早期创业产品范围控制与焦点纪律.md)
+* [B2B 定价心理学](learning/2026-02-20-B2B服务定价心理学与早期定价策略.md)
 * [创始人销售](learning/2026-02-19-创始人主导销售与首批客户关闭.md)
 * [咨询到产品路径](learning/2026-02-18-咨询到产品的创业路径.md)
+* [首批客户获取](learning/2026-02-17-首批客户获取与发现访谈.md)
 * [Elon Musk 框架](learning/Elon-Musk-Framework.md)

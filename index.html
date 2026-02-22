@@ -373,9 +373,13 @@ const TABS = {
     title: '🔬 研究', subtitle: '市场 · 竞品 · 行业',
     path: 'research',
     files: [
+      { name: 'GC 十大具体痛点 × AI 机会', file: 'research/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🏗' },
+      { name: 'GC 项目全生命周期拆解', file: 'research/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄' },
+      { name: 'CrossBeam 竞品深度调研', file: 'research/2026-02-21-crossbeam-competitor-watch.md', icon: '📡' },
+      { name: 'GC 供应商渠道获客战略', file: 'research/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢' },
       { name: '达拉斯 GC 作战手册', file: 'research/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
-      { name: 'GC 发现访谈脚本', file: 'research/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
       { name: 'GC 信任建立策略', file: 'research/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
+      { name: 'GC 发现访谈脚本', file: 'research/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
       { name: 'Track 1 竞品地图', file: 'research/2026-02-17-Track1-Competitor-Map.md', icon: '🗂' },
       { name: '蓝海细分市场 Top20', file: 'research/Top-20-Blue-Ocean-Jobs.md', icon: '🌊' },
       { name: '200 岗位 AI 替代分析', file: 'research/200-jobs-ai-replacement-analysis.md', icon: '📊' },
@@ -387,6 +391,7 @@ const TABS = {
     title: '📚 学习', subtitle: 'CEO 技能 · 创业方法论',
     path: 'learning',
     files: [
+      { name: '产品范围控制与焦点纪律', file: 'learning/2026-02-21-早期创业产品范围控制与焦点纪律.md', icon: '🎯' },
       { name: 'B2B 定价心理学', file: 'learning/2026-02-20-B2B服务定价心理学与早期定价策略.md', icon: '💰' },
       { name: '创始人销售', file: 'learning/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '🤝' },
       { name: '咨询到产品路径', file: 'learning/2026-02-18-咨询到产品的创业路径.md', icon: '🚀' },
@@ -480,23 +485,26 @@ async function renderIdeas() {
   }
 }
 
-function renderHome() {
-  document.getElementById('content-area').innerHTML = `
+async function renderHome() {
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
     <div class="home-hero">
       <h2>Renaix Library</h2>
       <p>Renaissance + AI + X · AI-native 公司知识库<br>Founded 2026 · CEO Elon North 🧭</p>
     </div>
-    <div class="home-stats">
-      <div class="stat-card"><div class="num">93</div><div class="label">IDEAS</div></div>
-      <div class="stat-card"><div class="num">3</div><div class="label">CLIENTS</div></div>
+    <div class="home-stats" id="home-stats">
+      <div class="stat-card"><div class="num">98</div><div class="label">IDEAS</div></div>
+      <div class="stat-card"><div class="num">21</div><div class="label">RESEARCH</div></div>
       <div class="stat-card"><div class="num">7</div><div class="label">STRATEGY</div></div>
-      <div class="stat-card"><div class="num">8</div><div class="label">RESEARCH</div></div>
+      <div class="stat-card"><div class="num">7</div><div class="label">LEARNING</div></div>
     </div>
-    <div class="list-header">快速访问</div>
+    <div class="list-header">⚡ 最新文档</div>
+    <div class="file-list" id="latest-list"><div style="padding:16px;color:var(--muted);font-size:13px">加载中…</div></div>
+    <div class="list-header">📌 固定入口</div>
     <div class="quick-links">
       <div class="quick-link-item" onclick="switchTabByName('ideas')">
         <span class="ql-icon">💡</span>
-        <div class="ql-text"><div class="ql-title">Ideas 全库</div><div class="ql-desc">93 个 AI 岗位替代 Startup Ideas</div></div>
+        <div class="ql-text"><div class="ql-title">Ideas 全库</div><div class="ql-desc">98 个 AI 岗位替代 Startup Ideas</div></div>
         <span class="ql-arrow">›</span>
       </div>
       <div class="quick-link-item" onclick="openArticle('ideas/GC-沟通协调-AI员工团队.md','GC 沟通协调 AI 员工团队')">
@@ -509,12 +517,42 @@ function renderHome() {
         <div class="ql-text"><div class="ql-title">公司时间线</div><div class="ql-desc">Renaix 里程碑记录</div></div>
         <span class="ql-arrow">›</span>
       </div>
-      <div class="quick-link-item" onclick="switchTabByName('research')">
-        <span class="ql-icon">🗺</span>
-        <div class="ql-text"><div class="ql-title">达拉斯 GC 市场手册</div><div class="ql-desc">GTM 第一城市作战计划</div></div>
-        <span class="ql-arrow">›</span>
-      </div>
     </div>`;
+
+  // Load latest docs from _latest.json
+  try {
+    const base = window.BASE_URL || '';
+    const res = await fetch(`${base}_latest.json?t=${Date.now()}`);
+    const data = await res.json();
+
+    // Update stats
+    if (data.stats) {
+      const s = data.stats;
+      document.getElementById('home-stats').innerHTML = `
+        <div class="stat-card"><div class="num">${s.ideas||'—'}</div><div class="label">IDEAS</div></div>
+        <div class="stat-card"><div class="num">${s.research||'—'}</div><div class="label">RESEARCH</div></div>
+        <div class="stat-card"><div class="num">${s.strategy||'—'}</div><div class="label">STRATEGY</div></div>
+        <div class="stat-card"><div class="num">${s.learning||'—'}</div><div class="label">LEARNING</div></div>`;
+    }
+
+    // Render latest list
+    const list = document.getElementById('latest-list');
+    if (data.latest && data.latest.length) {
+      list.innerHTML = data.latest.map(item => `
+        <div class="file-item" onclick="openArticle('${item.file}','${item.title}')">
+          <span class="file-icon">${item.icon||'📄'}</span>
+          <div class="file-info">
+            <div class="file-name">${item.title}</div>
+            <div class="file-meta">${item.tag||''} · ${item.date||''}</div>
+          </div>
+          <span class="file-arrow">›</span>
+        </div>`).join('');
+    } else {
+      list.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:13px">暂无最新文档</div>';
+    }
+  } catch(e) {
+    document.getElementById('latest-list').innerHTML = '<div style="padding:16px;color:var(--muted);font-size:13px">加载失败，请刷新重试</div>';
+  }
 }
 
 function switchTabByName(name) {
