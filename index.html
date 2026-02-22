@@ -315,17 +315,17 @@ html, body {
     <button class="tab active" onclick="switchTab('home',this)">
       <span class="icon">🏠</span>首页
     </button>
-    <button class="tab" onclick="switchTab('ideas',this)">
-      <span class="icon">💡</span>Ideas
+    <button class="tab" onclick="switchTab('clients',this)">
+      <span class="icon">🤝</span>客户
     </button>
-    <button class="tab" onclick="switchTab('strategy',this)">
-      <span class="icon">📊</span>策略
+    <button class="tab" onclick="switchTab('product',this)">
+      <span class="icon">📦</span>产品
     </button>
-    <button class="tab" onclick="switchTab('research',this)">
-      <span class="icon">🔬</span>研究
+    <button class="tab" onclick="switchTab('gtm',this)">
+      <span class="icon">🎯</span>GTM
     </button>
-    <button class="tab" onclick="switchTab('learning',this)">
-      <span class="icon">📚</span>学习
+    <button class="tab" onclick="switchTab('market',this)">
+      <span class="icon">📊</span>市场
     </button>
   </nav>
 </div>
@@ -351,55 +351,52 @@ const BASE = location.pathname.replace(/\/$/, '');
 // ── File data per tab ──
 const TABS = {
   home: { title: '🧭 Renaix', subtitle: '公司知识库' },
+  clients: {
+    title: '🤝 客户', subtitle: '客户档案 · Leads',
+    files: [
+      { name: 'Supra Neuro (001)', file: 'clients/001-supra-neuro/CLIENT.md', icon: '🏢' },
+    ]
+  },
+  product: {
+    title: '📦 产品', subtitle: 'Maya · 功能 · 定价',
+    files: [
+      { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭' },
+      { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰' },
+      { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺' },
+      { name: 'Stateless & State', file: 'product/stateless-and-state.md', icon: '⚡' },
+    ]
+  },
+  gtm: {
+    title: '🎯 GTM', subtitle: '销售 · 访谈 · 外联',
+    files: [
+      { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤' },
+      { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯' },
+      { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
+      { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢' },
+      { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
+      { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
+      { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼' },
+      { name: '首批客户获取', file: 'gtm/2026-02-17-首批客户获取与发现访谈.md', icon: '🚀' },
+    ]
+  },
+  market: {
+    title: '📊 市场', subtitle: '行业研究 · 竞品分析',
+    files: [
+      { name: 'GC 十大具体痛点 × AI 机会', file: 'market/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🏗' },
+      { name: 'GC 项目全生命周期拆解', file: 'market/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄' },
+      { name: 'CrossBeam 竞品深度调研', file: 'market/2026-02-21-crossbeam-competitor-watch.md', icon: '📡' },
+      { name: 'Track 1 竞品地图', file: 'market/2026-02-17-Track1-Competitor-Map.md', icon: '🗂' },
+      { name: '蓝海细分市场 Top 20', file: 'market/Top-20-Blue-Ocean-Jobs.md', icon: '🌊' },
+      { name: '200 岗位 AI 替代分析', file: 'market/200-jobs-ai-replacement-analysis.md', icon: '📊' },
+      { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭' },
+      { name: '美国行业人口地图', file: 'market/US-Industry-Workers-Output-Map.md', icon: '🗺' },
+    ]
+  },
   ideas: {
-    title: '💡 Ideas', subtitle: 'AI 岗位替代 Startup Ideas',
+    title: '💡 创意库', subtitle: 'AI 岗位替代 Startup Ideas',
     path: 'ideas',
-    files: [] // loaded dynamically from sidebar
+    files: []
   },
-  strategy: {
-    title: '📊 策略', subtitle: 'GTM · 定价 · 市场',
-    path: 'strategy',
-    files: [
-      { name: 'GC AI 产品机会全景规划', file: 'strategy/GC-AI产品机会全景规划.md', icon: '🗺' },
-      { name: 'Two-Track Strategy', file: 'strategy/Two-Track-Strategy.md', icon: '🎯' },
-      { name: 'Blue Collar AI Thesis', file: 'strategy/Blue-Collar-Tech-AI-Thesis.md', icon: '🏭' },
-      { name: 'GTM 分析', file: 'strategy/2026-02-07-GTM-Critical-Analysis.md', icon: '📈' },
-      { name: 'AI 岗位替代方法论', file: 'strategy/AI岗位替代方法论.md', icon: '🤖' },
-      { name: 'Drucker 黑箱论文', file: 'strategy/Drucker-Black-Box-Blue-Collar-Thesis.md', icon: '📖' },
-      { name: '2x2 Matrix', file: 'strategy/2x2-Matrix-Blue-Collar-Agent.md', icon: '🔲' },
-      { name: 'Stateless & State', file: 'strategy/stateless-and-state.md', icon: '⚡' },
-    ]
-  },
-  research: {
-    title: '🔬 研究', subtitle: '市场 · 竞品 · 行业',
-    path: 'research',
-    files: [
-      { name: 'GC 十大具体痛点 × AI 机会', file: 'research/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🏗' },
-      { name: 'GC 项目全生命周期拆解', file: 'research/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄' },
-      { name: 'CrossBeam 竞品深度调研', file: 'research/2026-02-21-crossbeam-competitor-watch.md', icon: '📡' },
-      { name: 'GC 供应商渠道获客战略', file: 'research/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢' },
-      { name: '达拉斯 GC 作战手册', file: 'research/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
-      { name: 'GC 信任建立策略', file: 'research/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
-      { name: 'GC 发现访谈脚本', file: 'research/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
-      { name: 'Track 1 竞品地图', file: 'research/2026-02-17-Track1-Competitor-Map.md', icon: '🗂' },
-      { name: '蓝海细分市场 Top20', file: 'research/Top-20-Blue-Ocean-Jobs.md', icon: '🌊' },
-      { name: '200 岗位 AI 替代分析', file: 'research/200-jobs-ai-replacement-analysis.md', icon: '📊' },
-      { name: 'NAICS 行业概览', file: 'research/NAICS-20-Sectors-Overview.md', icon: '🏭' },
-      { name: 'Indeed 职位分析', file: 'research/2026-02-08-Indeed-Job-Analysis.md', icon: '💼' },
-    ]
-  },
-  learning: {
-    title: '📚 学习', subtitle: 'CEO 技能 · 创业方法论',
-    path: 'learning',
-    files: [
-      { name: '产品范围控制与焦点纪律', file: 'learning/2026-02-21-早期创业产品范围控制与焦点纪律.md', icon: '🎯' },
-      { name: 'B2B 定价心理学', file: 'learning/2026-02-20-B2B服务定价心理学与早期定价策略.md', icon: '💰' },
-      { name: '创始人销售', file: 'learning/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '🤝' },
-      { name: '咨询到产品路径', file: 'learning/2026-02-18-咨询到产品的创业路径.md', icon: '🚀' },
-      { name: '首批客户获取', file: 'learning/2026-02-17-首批客户获取与发现访谈.md', icon: '🎯' },
-      { name: 'Elon Musk 框架', file: 'learning/Elon-Musk-Framework.md', icon: '⚡' },
-    ]
-  }
 };
 
 let currentTab = 'home';
@@ -494,28 +491,28 @@ async function renderHome() {
       <p>Renaissance + AI + X · AI-native 公司知识库<br>Founded 2026 · CEO Elon North 🧭</p>
     </div>
     <div class="home-stats" id="home-stats">
-      <div class="stat-card"><div class="num">98</div><div class="label">IDEAS</div></div>
-      <div class="stat-card"><div class="num">21</div><div class="label">RESEARCH</div></div>
-      <div class="stat-card"><div class="num">7</div><div class="label">STRATEGY</div></div>
-      <div class="stat-card"><div class="num">7</div><div class="label">LEARNING</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="label">客户</div></div>
+      <div class="stat-card"><div class="num">4</div><div class="label">产品</div></div>
+      <div class="stat-card"><div class="num">8</div><div class="label">GTM</div></div>
+      <div class="stat-card"><div class="num">100</div><div class="label">IDEAS</div></div>
     </div>
     <div class="list-header">⚡ 最新文档</div>
     <div class="file-list" id="latest-list"><div style="padding:16px;color:var(--muted);font-size:13px">加载中…</div></div>
     <div class="list-header">📌 固定入口</div>
     <div class="quick-links">
-      <div class="quick-link-item" onclick="switchTabByName('ideas')">
-        <span class="ql-icon">💡</span>
-        <div class="ql-text"><div class="ql-title">Ideas 全库</div><div class="ql-desc">98 个 AI 岗位替代 Startup Ideas</div></div>
+      <div class="quick-link-item" onclick="openArticle('product/maya-product-strategy.md','Maya 产品大战略')">
+        <span class="ql-icon">🧭</span>
+        <div class="ql-text"><div class="ql-title">Maya 产品大战略</div><div class="ql-desc">三圈框架 · AI 员工定位</div></div>
         <span class="ql-arrow">›</span>
       </div>
-      <div class="quick-link-item" onclick="openArticle('ideas/GC-沟通协调-AI员工团队.md','GC 沟通协调 AI 员工团队')">
-        <span class="ql-icon">🏗</span>
-        <div class="ql-text"><div class="ql-title">GC 沟通协调 AI 团队</div><div class="ql-desc">当前首要产品方向</div></div>
-        <span class="ql-arrow">›</span>
-      </div>
-      <div class="quick-link-item" onclick="openArticle('Company-Timeline.md','公司时间线')">
+      <div class="quick-link-item" onclick="openArticle('company/Company-Timeline.md','公司时间线')">
         <span class="ql-icon">🗓</span>
         <div class="ql-text"><div class="ql-title">公司时间线</div><div class="ql-desc">Renaix 里程碑记录</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+      <div class="quick-link-item" onclick="switchTabByName('ideas')">
+        <span class="ql-icon">💡</span>
+        <div class="ql-text"><div class="ql-title">Ideas 创意库</div><div class="ql-desc">100 个 AI 岗位替代 Startup Ideas</div></div>
         <span class="ql-arrow">›</span>
       </div>
     </div>`;
@@ -530,10 +527,10 @@ async function renderHome() {
     if (data.stats) {
       const s = data.stats;
       document.getElementById('home-stats').innerHTML = `
-        <div class="stat-card"><div class="num">${s.ideas||'—'}</div><div class="label">IDEAS</div></div>
-        <div class="stat-card"><div class="num">${s.research||'—'}</div><div class="label">RESEARCH</div></div>
-        <div class="stat-card"><div class="num">${s.strategy||'—'}</div><div class="label">STRATEGY</div></div>
-        <div class="stat-card"><div class="num">${s.learning||'—'}</div><div class="label">LEARNING</div></div>`;
+        <div class="stat-card"><div class="num">${s.clients||'—'}</div><div class="label">客户</div></div>
+        <div class="stat-card"><div class="num">${s.product||'—'}</div><div class="label">产品</div></div>
+        <div class="stat-card"><div class="num">${s.gtm||'—'}</div><div class="label">GTM</div></div>
+        <div class="stat-card"><div class="num">${s.ideas||'—'}</div><div class="label">IDEAS</div></div>`;
     }
 
     // Render latest list
