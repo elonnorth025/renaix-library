@@ -313,19 +313,16 @@ html, body {
   <!-- Tab bar -->
   <nav id="tab-bar">
     <button class="tab active" onclick="switchTab('home',this)">
-      <span class="icon">🏠</span>首页
+      <span class="icon">🏛</span>公司
     </button>
     <button class="tab" onclick="switchTab('clients',this)">
       <span class="icon">🤝</span>客户
     </button>
-    <button class="tab" onclick="switchTab('product',this)">
-      <span class="icon">📦</span>产品
-    </button>
-    <button class="tab" onclick="switchTab('gtm',this)">
-      <span class="icon">🎯</span>GTM
-    </button>
     <button class="tab" onclick="switchTab('market',this)">
       <span class="icon">📊</span>市场
+    </button>
+    <button class="tab" onclick="switchTab('strategy',this)">
+      <span class="icon">🎯</span>策略
     </button>
   </nav>
 </div>
@@ -350,33 +347,11 @@ const BASE = location.pathname.replace(/\/$/, '');
 
 // ── File data per tab ──
 const TABS = {
-  home: { title: '🧭 Renaix', subtitle: '公司知识库' },
+  home: { title: '🏛 Renaix', subtitle: '公司 · 产品 · 使命' },
   clients: {
     title: '🤝 客户', subtitle: '客户档案 · Leads',
     files: [
       { name: 'Supra Neuro (001)', file: 'clients/001-supra-neuro/CLIENT.md', icon: '🏢' },
-    ]
-  },
-  product: {
-    title: '📦 产品', subtitle: 'Maya · 功能 · 定价',
-    files: [
-      { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭' },
-      { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰' },
-      { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺' },
-      { name: 'Stateless & State', file: 'product/stateless-and-state.md', icon: '⚡' },
-    ]
-  },
-  gtm: {
-    title: '🎯 GTM', subtitle: '销售 · 访谈 · 外联',
-    files: [
-      { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤' },
-      { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯' },
-      { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
-      { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢' },
-      { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
-      { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
-      { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼' },
-      { name: '首批客户获取', file: 'gtm/2026-02-17-首批客户获取与发现访谈.md', icon: '🚀' },
     ]
   },
   market: {
@@ -390,6 +365,23 @@ const TABS = {
       { name: '200 岗位 AI 替代分析', file: 'market/200-jobs-ai-replacement-analysis.md', icon: '📊' },
       { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭' },
       { name: '美国行业人口地图', file: 'market/US-Industry-Workers-Output-Map.md', icon: '🗺' },
+    ]
+  },
+  strategy: {
+    title: '🎯 策略', subtitle: '产品 · GTM · 框架',
+    files: [
+      { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭' },
+      { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰' },
+      { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺' },
+      { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤' },
+      { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯' },
+      { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺' },
+      { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢' },
+      { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝' },
+      { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙' },
+      { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼' },
+      { name: 'AI 岗位替代方法论', file: 'company/AI岗位替代方法论.md', icon: '🤖' },
+      { name: 'Two-Track Strategy', file: 'company/Two-Track-Strategy.md', icon: '🔀' },
     ]
   },
   ideas: {
@@ -492,22 +484,22 @@ async function renderHome() {
     </div>
     <div class="home-stats" id="home-stats">
       <div class="stat-card"><div class="num">1</div><div class="label">客户</div></div>
-      <div class="stat-card"><div class="num">4</div><div class="label">产品</div></div>
-      <div class="stat-card"><div class="num">8</div><div class="label">GTM</div></div>
+      <div class="stat-card"><div class="num">14</div><div class="label">市场</div></div>
+      <div class="stat-card"><div class="num">12</div><div class="label">策略</div></div>
       <div class="stat-card"><div class="num">100</div><div class="label">IDEAS</div></div>
     </div>
     <div class="list-header">⚡ 最新文档</div>
     <div class="file-list" id="latest-list"><div style="padding:16px;color:var(--muted);font-size:13px">加载中…</div></div>
     <div class="list-header">📌 固定入口</div>
     <div class="quick-links">
-      <div class="quick-link-item" onclick="openArticle('product/maya-product-strategy.md','Maya 产品大战略')">
-        <span class="ql-icon">🧭</span>
-        <div class="ql-text"><div class="ql-title">Maya 产品大战略</div><div class="ql-desc">三圈框架 · AI 员工定位</div></div>
-        <span class="ql-arrow">›</span>
-      </div>
       <div class="quick-link-item" onclick="openArticle('company/Company-Timeline.md','公司时间线')">
         <span class="ql-icon">🗓</span>
         <div class="ql-text"><div class="ql-title">公司时间线</div><div class="ql-desc">Renaix 里程碑记录</div></div>
+        <span class="ql-arrow">›</span>
+      </div>
+      <div class="quick-link-item" onclick="openArticle('product/maya-product-strategy.md','Maya 产品大战略')">
+        <span class="ql-icon">🧭</span>
+        <div class="ql-text"><div class="ql-title">Maya 产品大战略</div><div class="ql-desc">三圈框架 · AI 员工定位</div></div>
         <span class="ql-arrow">›</span>
       </div>
       <div class="quick-link-item" onclick="switchTabByName('ideas')">
@@ -528,8 +520,8 @@ async function renderHome() {
       const s = data.stats;
       document.getElementById('home-stats').innerHTML = `
         <div class="stat-card"><div class="num">${s.clients||'—'}</div><div class="label">客户</div></div>
-        <div class="stat-card"><div class="num">${s.product||'—'}</div><div class="label">产品</div></div>
-        <div class="stat-card"><div class="num">${s.gtm||'—'}</div><div class="label">GTM</div></div>
+        <div class="stat-card"><div class="num">${s.market||'—'}</div><div class="label">市场</div></div>
+        <div class="stat-card"><div class="num">${s.strategy||'—'}</div><div class="label">策略</div></div>
         <div class="stat-card"><div class="num">${s.ideas||'—'}</div><div class="label">IDEAS</div></div>`;
     }
 
@@ -555,7 +547,15 @@ async function renderHome() {
 
 function switchTabByName(name) {
   const btn = document.querySelector(`.tab[onclick*="'${name}'"]`);
-  if (btn) switchTab(name, btn);
+  if (btn) { switchTab(name, btn); return; }
+  // fallback for tabs not in nav (e.g. ideas)
+  if (TABS[name]) {
+    currentTab = name;
+    document.getElementById('page-title').textContent = TABS[name].title;
+    document.getElementById('page-subtitle').textContent = TABS[name].subtitle;
+    if (name === 'ideas') renderIdeas();
+    else renderFileList(TABS[name].files, name);
+  }
 }
 
 function switchTab(name, el) {
