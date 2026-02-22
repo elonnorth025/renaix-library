@@ -5,6 +5,7 @@
 * [📋 README](README.md)
 
 **策略**
+* [GC AI 产品机会全景规划](strategy/GC-AI产品机会全景规划.md)
 * [两条赛道战略](strategy/Two-Track-Strategy.md)
 * [蓝领 AI 论文](strategy/Blue-Collar-Tech-AI-Thesis.md)
 * [GTM 分析](strategy/2026-02-07-GTM-Critical-Analysis.md)
