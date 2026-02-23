@@ -332,11 +332,11 @@ html, body {
     <button class="tab" onclick="switchTab('clients',this)">
       <span class="icon">🤝</span>客户
     </button>
-    <button class="tab" onclick="switchTab('market',this)">
-      <span class="icon">📊</span>市场
+    <button class="tab" onclick="switchTab('product',this)">
+      <span class="icon">📦</span>产品
     </button>
-    <button class="tab" onclick="switchTab('strategy',this)">
-      <span class="icon">🎯</span>策略
+    <button class="tab" onclick="switchTab('gtm',this)">
+      <span class="icon">🎯</span>GTM
     </button>
     <button class="tab" onclick="switchTab('maya',this)">
       <span class="icon">🤖</span>Maya
@@ -367,57 +367,50 @@ if (window.Telegram?.WebApp) { Telegram.WebApp.ready(); Telegram.WebApp.expand()
 
 const BASE = location.pathname.replace(/\/$/, '');
 let currentTab = 'home';
-let statsData = {};
 
-// ── All documents index for search ──
-const ALL_DOCS = [
-  { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭', tag: '产品' },
-  { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰', tag: '产品' },
-  { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺', tag: '产品' },
-  { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤', tag: 'GTM' },
-  { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯', tag: 'GTM' },
-  { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺', tag: 'GTM' },
-  { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢', tag: 'GTM' },
-  { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝', tag: 'GTM' },
-  { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙', tag: 'GTM' },
-  { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼', tag: 'GTM' },
-  { name: 'GC 十大具体痛点 × AI 机会', file: 'market/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🏗', tag: '市场' },
-  { name: 'GC 项目全生命周期拆解', file: 'market/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄', tag: '市场' },
-  { name: 'CrossBeam 竞品深度调研', file: 'market/2026-02-21-crossbeam-competitor-watch.md', icon: '📡', tag: '竞品' },
-  { name: 'Track 1 竞品地图', file: 'market/2026-02-17-Track1-Competitor-Map.md', icon: '🗂', tag: '竞品' },
-  { name: '蓝海细分市场 Top 20', file: 'market/Top-20-Blue-Ocean-Jobs.md', icon: '🌊', tag: '市场' },
-  { name: '200 岗位 AI 替代分析', file: 'market/200-jobs-ai-replacement-analysis.md', icon: '📊', tag: '市场' },
-  { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭', tag: '市场' },
-  { name: '公司时间线', file: 'company/Company-Timeline.md', icon: '🗓', tag: '公司' },
-  { name: 'AI 岗位替代方法论', file: 'company/AI岗位替代方法论.md', icon: '🤖', tag: '公司' },
-  { name: 'B2B 定价心理学', file: 'company/2026-02-20-B2B服务定价心理学与早期定价策略.md', icon: '💰', tag: '学习' },
-  { name: '产品范围控制与焦点纪律', file: 'company/2026-02-21-早期创业产品范围控制与焦点纪律.md', icon: '📋', tag: '学习' },
-];
-
-const STRATEGY_DOCS = [
-  { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭', tag: '产品', desc: '三圈框架 · AI 员工定位' },
-  { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰', tag: '产品', desc: '基本工资 + Contractor' },
-  { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺', tag: '产品', desc: '全景机会地图' },
-  { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤', tag: 'GTM', desc: '200接触→15访谈→3 Demo' },
-  { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯', tag: 'GTM', desc: '30分钟决策框架' },
-  { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺', tag: 'GTM', desc: 'DFW 30天行动计划' },
-  { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢', tag: 'GTM', desc: '供应商引荐路径' },
-  { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝', tag: 'GTM', desc: '信任优先市场规律' },
-  { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙', tag: 'GTM', desc: '三渠道话术模板' },
-  { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼', tag: 'GTM', desc: '前10个客户必须亲自做' },
-  { name: 'AI 岗位替代方法论', file: 'company/AI岗位替代方法论.md', icon: '🤖', tag: '框架', desc: '三条件 · 四模式' },
-  { name: 'Two-Track Strategy', file: 'company/Two-Track-Strategy.md', icon: '🔀', tag: '框架', desc: '建筑/地产/运输优先' },
-];
-
-const MARKET_DOCS = [
-  { name: 'GC 十大具体痛点 × AI 机会', file: 'market/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🏗', tag: 'GC', desc: '最高价值切入点分析' },
-  { name: 'GC 项目全生命周期拆解', file: 'market/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄', tag: 'GC', desc: '售前→施工→收尾全流程' },
-  { name: 'CrossBeam 竞品深度调研', file: 'market/2026-02-21-crossbeam-competitor-watch.md', icon: '📡', tag: '竞品', desc: '25 stars · Michael T. Brown' },
+// ── Document indexes ──
+const PRODUCT_DOCS = [
+  { name: 'Maya 产品大战略', file: 'product/maya-product-strategy.md', icon: '🧭', tag: '核心', desc: '三圈框架 · AI 员工定位' },
+  { name: 'Maya 功能清单（Priority）', file: 'product/maya-product-features.md', icon: '📋', tag: '核心', desc: 'P0/P1/P2 三级优先级' },
+  { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰', tag: '核心', desc: '基本工资 + Contractor' },
+  { name: 'GC 沟通协调 AI 员工团队', file: 'ideas/GC-沟通协调-AI员工团队.md', icon: '🏗', tag: '规划', desc: '核心产品完整方案' },
+  { name: 'GC AI 产品机会全景规划', file: 'product/GC-AI产品机会全景规划.md', icon: '🗺', tag: '规划', desc: '全景机会地图' },
+  { name: 'GC 十大具体痛点 × AI 机会', file: 'market/2026-02-21-GC十大具体痛点与AI产品机会.md', icon: '🔟', tag: '市场', desc: '最高价值切入点分析' },
+  { name: 'GC 项目全生命周期拆解', file: 'market/2026-02-21-GC项目全生命周期与AI自动化机会.md', icon: '🔄', tag: '市场', desc: '售前→施工→收尾全流程' },
+  { name: 'CrossBeam 竞品深度调研', file: 'market/2026-02-21-crossbeam-competitor-watch.md', icon: '📡', tag: '竞品', desc: '许可证合规竞品' },
   { name: 'Track 1 竞品地图', file: 'market/2026-02-17-Track1-Competitor-Map.md', icon: '🗂', tag: '竞品', desc: '建筑/地产/运输竞品全景' },
-  { name: '蓝海细分市场 Top 20', file: 'market/Top-20-Blue-Ocean-Jobs.md', icon: '🌊', tag: '机会', desc: 'AI渗透率<5%的市场' },
-  { name: '200 岗位 AI 替代分析', file: 'market/200-jobs-ai-replacement-analysis.md', icon: '📊', tag: '数据', desc: '各岗位替代可行性评分' },
-  { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭', tag: '数据', desc: '20大行业人口与产值' },
-  { name: '美国行业人口地图', file: 'market/US-Industry-Workers-Output-Map.md', icon: '🗺', tag: '数据', desc: '333M人口行业分布' },
+  { name: '有状态与无状态 Agent', file: 'product/stateless-and-state.md', icon: '⚙️', tag: '技术', desc: 'Agent 架构设计' },
+];
+
+const GTM_DOCS = [
+  { name: '发现访谈完整执行剧本', file: 'gtm/2026-02-22-GC发现访谈执行剧本.md', icon: '🎤', tag: '访谈', desc: '200接触→15访谈→3 Demo' },
+  { name: 'Demo 演示与首单 Closing', file: 'gtm/2026-02-22-Demo演示设计与首单Closing.md', icon: '🎯', tag: 'Demo', desc: '30分钟决策框架' },
+  { name: 'GC 首批客户 Onboarding 框架', file: 'gtm/2026-02-23-GC首批客户Onboarding与成功交付框架.md', icon: '🛬', tag: 'Onboarding', desc: '30天成功交付计划' },
+  { name: '达拉斯 GC 市场作战手册', file: 'gtm/2026-02-20-德克萨斯州GC市场切入作战手册.md', icon: '🗺', tag: '市场', desc: 'DFW 30天行动计划' },
+  { name: 'GC 供应商渠道获客战略', file: 'gtm/2026-02-21-GC供应商渠道与行业协会获客战略.md', icon: '🏢', tag: '渠道', desc: '供应商引荐路径' },
+  { name: 'GC 行业信任建立策略', file: 'gtm/2026-02-19-GC行业信任建立与本地渗透策略.md', icon: '🤝', tag: '信任', desc: '信任优先市场规律' },
+  { name: '发现访谈脚本与冷外联手册', file: 'gtm/2026-02-18-GC发现访谈脚本与冷外联手册.md', icon: '🎙', tag: '访谈', desc: '三渠道话术模板' },
+  { name: '创始人主导销售', file: 'gtm/2026-02-19-创始人主导销售与首批客户关闭.md', icon: '💼', tag: '销售', desc: '前10个客户必须亲自做' },
+  { name: '首批客户获取与发现访谈', file: 'gtm/2026-02-17-首批客户获取与发现访谈.md', icon: '🎯', tag: '策略', desc: '7天行动计划框架' },
+];
+
+const COMPANY_DOCS = [
+  { name: '公司时间线', file: 'company/Company-Timeline.md', icon: '🗓', tag: '公司', desc: '从创立到今天' },
+  { name: 'AI 岗位替代方法论', file: 'company/AI岗位替代方法论.md', icon: '🤖', tag: '战略', desc: '三条件 · 四模式' },
+  { name: 'Two-Track Strategy', file: 'company/Two-Track-Strategy.md', icon: '🔀', tag: '战略', desc: '建筑/地产/运输优先' },
+  { name: '咨询到产品路径', file: 'company/2026-02-18-咨询到产品的创业路径.md', icon: '🛤', tag: '战略', desc: '三条件 · 硬截止日2026' },
+  { name: 'B2B 定价心理学', file: 'company/2026-02-20-B2B服务定价心理学与早期定价策略.md', icon: '💰', tag: '学习', desc: '早期定价策略' },
+  { name: '产品范围控制与焦点纪律', file: 'company/2026-02-21-早期创业产品范围控制与焦点纪律.md', icon: '📋', tag: '学习', desc: 'PMF前的焦点原则' },
+  { name: '创始人稀缺资源管理', file: 'company/2026-02-23-创始人稀缺资源管理时间注意力精力.md', icon: '⏱️', tag: '学习', desc: '时间/注意力/精力三维' },
+  { name: 'Elon Musk 框架', file: 'company/Elon-Musk-Framework.md', icon: '🚀', tag: '学习', desc: '物理第一原理思维' },
+  { name: '蓝海细分市场 Top 20', file: 'market/Top-20-Blue-Ocean-Jobs.md', icon: '🌊', tag: '市场', desc: 'AI渗透率<5%的市场' },
+  { name: '美国行业人口地图', file: 'market/US-Industry-Workers-Output-Map.md', icon: '🗺', tag: '市场', desc: '333M人口行业分布' },
+  { name: '200 岗位 AI 替代分析', file: 'market/200-jobs-ai-replacement-analysis.md', icon: '📊', tag: '市场', desc: '各岗位替代可行性评分' },
+  { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭', tag: '市场', desc: '20大行业人口与产值' },
+];
+
+const ALL_DOCS = [...PRODUCT_DOCS, ...GTM_DOCS, ...COMPANY_DOCS,
+  { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰', tag: '产品' },
 ];
 
 // ── Fetch helpers ──
@@ -532,14 +525,20 @@ async function renderHome() {
     </div>
 
     <div class="section-title">📈 最新动态</div>
-    <div id="activity-feed">
-      <div class="activity-item"><div class="activity-dot"></div><div><div class="activity-text">Maya 产品大战略更新：三圈框架 + Agent 架构 + 定价模型</div><div class="activity-time">2026-02-22 · 今天</div></div></div>
-      <div class="activity-item"><div class="activity-dot" style="background:var(--blue)"></div><div><div class="activity-text">GC 发现访谈执行剧本完成，涵盖全流程</div><div class="activity-time">2026-02-22 · 今天</div></div></div>
-      <div class="activity-item"><div class="activity-dot" style="background:var(--purple)"></div><div><div class="activity-text">知识库重组完成：公司 / 客户 / 市场 / 策略</div><div class="activity-time">2026-02-22 · 今天</div></div></div>
-      <div class="activity-item"><div class="activity-dot" style="background:var(--green)"></div><div><div class="activity-text">Demo 演示设计与首单 Closing 心理学研究完成</div><div class="activity-time">2026-02-22 · 今天</div></div></div>
-    </div>`;
+    <div id="activity-feed" class="card-list">
+      <div style="padding:16px;color:var(--muted);font-size:13px;text-align:center">加载中…</div>
+    </div>
 
-  // Load live stats
+    <div class="section-title" style="margin-top:8px">🏛 公司文档</div>
+    <div class="filter-row" id="company-filter-row">
+      ${['all','公司','战略','学习','市场'].map((t,i) => `<div class="chip ${i===0?'active':''}" onclick="filterHomeCompany('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
+    </div>
+    <div class="card-list" id="company-doc-list"></div>`;
+
+  // Render company docs section
+  renderHomeCompanyList('all');
+
+  // Load live stats + latest docs
   try {
     const res = await fetch(BASE + '/_latest.json?t=' + Date.now());
     const data = await res.json();
@@ -551,7 +550,25 @@ async function renderHome() {
         <div class="kpi-card"><div class="kpi-num">0</div><div class="kpi-label">访谈</div></div>
         <div class="kpi-card"><div class="kpi-num">${s.ideas||100}</div><div class="kpi-label">IDEAS</div></div>`;
     }
-  } catch(e) {}
+    if (data.latest && data.latest.length) {
+      const feed = document.getElementById('activity-feed');
+      feed.innerHTML = data.latest.map(item => `
+        <div class="doc-card" onclick="openArticle('${item.file}','${item.title}')">
+          <div class="doc-icon">${item.icon}</div>
+          <div class="doc-info">
+            <div class="doc-name">${item.title}</div>
+            <div class="doc-meta">
+              <span class="doc-tag">${item.tag}</span>
+              <span class="doc-date">${item.date}</span>
+            </div>
+          </div>
+          <div class="doc-arrow">›</div>
+        </div>`).join('');
+    }
+  } catch(e) {
+    document.getElementById('activity-feed').innerHTML =
+      '<div style="padding:16px;color:var(--muted);font-size:13px;text-align:center">暂无动态</div>';
+  }
 }
 
 // ── CLIENTS ──
@@ -624,57 +641,54 @@ function filterClients(stage, el) {
   el.classList.add('active');
 }
 
-// ── MARKET ──
-let activeMarketFilter = 'all';
-function renderMarket() {
+// ── PRODUCT ──
+function renderProduct() {
   const area = document.getElementById('content-area');
-  const tags = ['all','GC','竞品','机会','数据'];
+  const tags = ['all','核心','规划','市场','竞品','技术'];
   area.innerHTML = `
     <div class="filter-row">
-      ${tags.map(t => `<div class="chip ${t==='all'?'active':''}" onclick="filterMarket('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
+      ${tags.map(t => `<div class="chip ${t==='all'?'active':''}" onclick="filterProduct('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
     </div>
-    <div class="card-list" id="market-list"></div>`;
-  renderMarketList('all');
+    <div class="card-list" id="product-list"></div>`;
+  renderProductList('all');
 }
 
-function filterMarket(tag, el) {
+function filterProduct(tag, el) {
   document.querySelectorAll('.filter-row .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  activeMarketFilter = tag;
-  renderMarketList(tag);
+  renderProductList(tag);
 }
 
-function renderMarketList(tag) {
-  const docs = tag === 'all' ? MARKET_DOCS : MARKET_DOCS.filter(d => d.tag === tag);
-  const list = document.getElementById('market-list');
+function renderProductList(tag) {
+  const docs = tag === 'all' ? PRODUCT_DOCS : PRODUCT_DOCS.filter(d => d.tag === tag);
+  const list = document.getElementById('product-list');
   list.innerHTML = docs.map(d => docCardHTML(d)).join('');
   list.querySelectorAll('.doc-card').forEach((el, i) => {
     el.onclick = () => openArticle(docs[i].file, docs[i].name);
   });
 }
 
-// ── STRATEGY ──
-let activeStrategyFilter = 'all';
-function renderStrategy() {
+// ── GTM ──
+function renderGTM() {
   const area = document.getElementById('content-area');
-  const tags = ['all','产品','GTM','框架'];
+  const tags = ['all','访谈','Demo','Onboarding','渠道','销售','市场'];
   area.innerHTML = `
     <div class="filter-row">
-      ${tags.map(t => `<div class="chip ${t==='all'?'active':''}" onclick="filterStrategy('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
+      ${tags.map(t => `<div class="chip ${t==='all'?'active':''}" onclick="filterGTM('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
     </div>
-    <div class="card-list" id="strategy-list"></div>`;
-  renderStrategyList('all');
+    <div class="card-list" id="gtm-list"></div>`;
+  renderGTMList('all');
 }
 
-function filterStrategy(tag, el) {
+function filterGTM(tag, el) {
   document.querySelectorAll('.filter-row .chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  renderStrategyList(tag);
+  renderGTMList(tag);
 }
 
-function renderStrategyList(tag) {
-  const docs = tag === 'all' ? STRATEGY_DOCS : STRATEGY_DOCS.filter(d => d.tag === tag);
-  const list = document.getElementById('strategy-list');
+function renderGTMList(tag) {
+  const docs = tag === 'all' ? GTM_DOCS : GTM_DOCS.filter(d => d.tag === tag);
+  const list = document.getElementById('gtm-list');
   list.innerHTML = docs.map(d => docCardHTML(d)).join('');
   list.querySelectorAll('.doc-card').forEach((el, i) => {
     el.onclick = () => openArticle(docs[i].file, docs[i].name);
@@ -811,6 +825,50 @@ async function renderMaya() {
   }
 }
 
+// ── HOME COMPANY FILTER ──
+function filterHomeCompany(tag, el) {
+  document.querySelectorAll('#company-filter-row .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderHomeCompanyList(tag);
+}
+
+function renderHomeCompanyList(tag) {
+  const docs = tag === 'all' ? COMPANY_DOCS : COMPANY_DOCS.filter(d => d.tag === tag);
+  const list = document.getElementById('company-doc-list');
+  if (!list) return;
+  list.innerHTML = docs.map(d => docCardHTML(d)).join('');
+  list.querySelectorAll('.doc-card').forEach((el, i) => {
+    el.onclick = () => openArticle(docs[i].file, docs[i].name);
+  });
+}
+
+// ── COMPANY (full doc list in home tab's secondary view) ──
+function renderCompany() {
+  const area = document.getElementById('content-area');
+  const tags = ['all','公司','战略','学习','市场'];
+  area.innerHTML = `
+    <div class="filter-row">
+      ${tags.map(t => `<div class="chip ${t==='all'?'active':''}" onclick="filterCompany('${t}',this)">${t==='all'?'全部':t}</div>`).join('')}
+    </div>
+    <div class="card-list" id="company-list"></div>`;
+  renderCompanyList('all');
+}
+
+function filterCompany(tag, el) {
+  document.querySelectorAll('.filter-row .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderCompanyList(tag);
+}
+
+function renderCompanyList(tag) {
+  const docs = tag === 'all' ? COMPANY_DOCS : COMPANY_DOCS.filter(d => d.tag === tag);
+  const list = document.getElementById('company-list');
+  list.innerHTML = docs.map(d => docCardHTML(d)).join('');
+  list.querySelectorAll('.doc-card').forEach((el, i) => {
+    el.onclick = () => openArticle(docs[i].file, docs[i].name);
+  });
+}
+
 // ── TAB SWITCHING ──
 function switchTab(name, el) {
   currentTab = name;
@@ -820,8 +878,8 @@ function switchTab(name, el) {
   document.getElementById('content-area').scrollTop = 0;
   if (name === 'home') renderHome();
   else if (name === 'clients') renderClients();
-  else if (name === 'market') renderMarket();
-  else if (name === 'strategy') renderStrategy();
+  else if (name === 'product') renderProduct();
+  else if (name === 'gtm') renderGTM();
   else if (name === 'maya') renderMaya();
 }
 
