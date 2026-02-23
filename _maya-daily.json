@@ -1,0 +1,38 @@
+{
+  "date": "2026-02-22",
+  "status": "online",
+  "todayWork": {
+    "research": {
+      "title": "GC 发现访谈完整执行剧本",
+      "file": "gtm/2026-02-22-GC发现访谈执行剧本.md",
+      "summary": "将过去分散的访谈建议系统化为可执行剧本，覆盖 200接触→15访谈→3 Demo 全漏斗"
+    },
+    "learning": {
+      "title": "Demo 演示设计与首单 Closing 心理学",
+      "file": "gtm/2026-02-22-Demo演示设计与首单Closing.md",
+      "summary": "三段式 Demo 结构：痛点共鸣 10min → 情景模拟 15min → Closing 5min"
+    },
+    "ideas": "GC 沟通协调 AI 团队深化：变更单自动捕获 + Scope Freeze + Demo 剧本引用",
+    "strategy": "Maya 产品大战略 v2：三圈框架 + Agent 架构 + 隐私隔离 + 基本工资定价模型",
+    "infra": "知识库全面重组（六板块）+ Mini App UI 大改版 + 所有 Cron 迁移到 Telegram"
+  },
+  "filesCreated": [
+    { "icon": "🎤", "name": "GC 发现访谈执行剧本", "path": "gtm/2026-02-22-GC发现访谈执行剧本.md" },
+    { "icon": "🎯", "name": "Demo 演示设计与首单 Closing", "path": "gtm/2026-02-22-Demo演示设计与首单Closing.md" },
+    { "icon": "🧭", "name": "Maya 产品大战略 v2", "path": "product/maya-product-strategy.md" }
+  ],
+  "cronStatus": [
+    { "name": "Morning Report", "time": "08:00", "status": "ok", "icon": "☀️" },
+    { "name": "Night Research", "time": "00:30", "status": "ok", "icon": "🌙" },
+    { "name": "New Idea by NAICS", "time": "每8小时", "status": "ok", "icon": "💡" },
+    { "name": "One-Person Co. 日报", "time": "18:00", "status": "ok", "icon": "🏢" },
+    { "name": "CS183B 课程推送", "time": "每4小时", "status": "ok", "icon": "📚" },
+    { "name": "CrossBeam 监控", "time": "12:00", "status": "ok", "icon": "📡" }
+  ],
+  "stats": {
+    "filesCreated": 3,
+    "tasksCompleted": 5,
+    "cronJobsOk": 6,
+    "hoursWorked": "00:30~08:00"
+  }
+}
