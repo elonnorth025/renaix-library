@@ -1,23 +1,23 @@
 {
-  "date": "2026-02-25",
+  "date": "2026-02-26",
   "status": "online",
   "todayWork": {
     "research": {
-      "title": "GC 客户成功案例构建与社会证明策略",
-      "file": "gtm/2026-02-25-GC客户成功案例构建与社会证明策略.md",
-      "summary": "零案例冷启动4层社会证明框架 + 案例模板 + 替代信任武器，核心：先进社区再卖产品"
+      "title": "GC 定价策略与报价转化率优化",
+      "file": "gtm/2026-02-26-GC定价策略与报价转化率优化.md",
+      "summary": "建立 3 层定价体系（$699/$1,299/定制），以人工成本为锚点，Pro 套餐 ROI 3-4x，设计定制报价流程和 A/B 定价实验方案"
     },
     "learning": {
-      "title": "创始人销售技能：从冷启动到可复制的销售系统",
-      "file": "company/2026-02-25-创始人销售技能：从冷启动到可复制的销售系统.md",
-      "summary": "发现访谈5问法 + 极简CRM + Demo三段结构 + ROI锚定 + Break-up email技巧"
+      "title": "CEO 如何建立早期销售系统与可复制销售剧本",
+      "file": "company/2026-02-26-CEO如何建立早期销售系统与可复制销售剧本.md",
+      "summary": "CEO 销售四阶段框架（无序探索→模式识别→系统固化→雇人），SPIN 提问法，三大拒绝话术，知识捕获系统设计"
     },
-    "ideas": "深化 GC 沟通协调 AI v5（首批成交3步路径）和 Commercial Cleaning Estimator v3（竞品格局 + 按次计费调整）",
-    "infra": "更新 _latest.json（11研究/16学习/108 ideas）+ Company-Timeline.md 追加今夜记录"
+    "ideas": "深化 GC-沟通协调 AI v6（加入定价实验计划，LTV/CAC 46x 估算）和 Construction-Punch-List-Coordinator v2（明确为主产品 Phase 2 插件，与 GC 主产品协同关系确立）",
+    "infra": "更新 Company-Timeline.md，同步 _latest.json 统计（ideas 111，research 12，learning 10）"
   },
   "filesCreated": [
-    { "icon": "🤝", "name": "GC 社会证明策略", "path": "gtm/2026-02-25-GC客户成功案例构建与社会证明策略.md" },
-    { "icon": "🎯", "name": "创始人销售技能系统", "path": "company/2026-02-25-创始人销售技能：从冷启动到可复制的销售系统.md" }
+    { "icon": "💰", "name": "GC 定价策略与报价转化率优化", "path": "gtm/2026-02-26-GC定价策略与报价转化率优化.md" },
+    { "icon": "🏋️", "name": "CEO 早期销售系统与可复制销售剧本", "path": "company/2026-02-26-CEO如何建立早期销售系统与可复制销售剧本.md" }
   ],
   "cronStatus": [
     { "name": "Morning Report", "time": "08:00", "status": "ok", "icon": "☀️" },
@@ -31,6 +31,6 @@
     "filesCreated": 2,
     "tasksCompleted": 7,
     "cronJobsOk": 6,
-    "hoursWorked": "00:30~01:00"
+    "hoursWorked": "00:30~00:48"
   }
 }
