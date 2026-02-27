@@ -66,22 +66,5 @@
     "nextAction": "三月初跟进，约 Discovery Call",
     "file": "pipeline/prospects/qiuhan/LEAD.md",
     "notes": "前 Webox SMB 销售，帮美国客户对接国内供应商"
-  },
-  {
-    "id": "005",
-    "name": "吉松",
-    "shortname": "JS",
-    "emoji": "🚀",
-    "industry": "SF 创业",
-    "location": "San Francisco, CA",
-    "stage": "lead",
-    "stageLabel": "Lead",
-    "contact": "吉松",
-    "mrr": "—",
-    "meeting": "—",
-    "monthlyFee": "—",
-    "nextAction": "保持联系，观察合作机会",
-    "file": "pipeline/leads/jisong/LEAD.md",
-    "notes": "前 Aponis，人脉/资源对接"
   }
 ]
