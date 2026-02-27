@@ -436,16 +436,13 @@ html, body {
   <div id="content-area"></div>
   <nav id="tab-bar">
     <button class="tab active" onclick="switchTab('home',this)">
-      <span class="icon">🏛</span>公司
+      <span class="icon">🏠</span>Home
     </button>
     <button class="tab" onclick="switchTab('clients',this)">
-      <span class="icon">🤝</span>客户
+      <span class="icon">🤝</span>Clients
     </button>
-    <button class="tab" onclick="switchTab('product',this)">
-      <span class="icon">📦</span>产品
-    </button>
-    <button class="tab" onclick="switchTab('gtm',this)">
-      <span class="icon">🎯</span>GTM
+    <button class="tab" onclick="switchTab('docs',this)">
+      <span class="icon">📚</span>Docs
     </button>
     <button class="tab" onclick="switchTab('maya',this)">
       <span class="icon">🤖</span>Maya
@@ -518,8 +515,32 @@ const COMPANY_DOCS = [
   { name: 'NAICS 行业概览', file: 'market/NAICS-20-Sectors-Overview.md', icon: '🏭', tag: '市场', desc: '20大行业人口与产值' },
 ];
 
-const ALL_DOCS = [...PRODUCT_DOCS, ...GTM_DOCS, ...COMPANY_DOCS,
-  { name: '定价模型', file: 'product/Maya-定价模型.md', icon: '💰', tag: '产品' },
+const ALL_DOCS = [...PRODUCT_DOCS, ...GTM_DOCS, ...COMPANY_DOCS];
+
+// ── DOCS Tab：统一文档库，按主题分类 ──
+const DOCS_TOPICS = [
+  {
+    id: 'pipeline',
+    label: '🎯 客户流程',
+    docs: [
+      { name: 'CRM 流程管理（6阶段）', file: 'pipeline/README.md', icon: '📋', tag: '流程', desc: 'Lead→Prospect→Discovery→Setup→Pilot→Client' },
+    ]
+  },
+  {
+    id: 'product',
+    label: '📦 产品',
+    docs: PRODUCT_DOCS
+  },
+  {
+    id: 'gtm',
+    label: '🎯 GTM',
+    docs: GTM_DOCS
+  },
+  {
+    id: 'company',
+    label: '🏛 公司',
+    docs: COMPANY_DOCS
+  },
 ];
 
 // ── Fetch helpers ──
@@ -1258,9 +1279,59 @@ function switchTab(name, el) {
   document.getElementById('content-area').scrollTop = 0;
   if (name === 'home') renderHome();
   else if (name === 'clients') renderClients();
-  else if (name === 'product') renderProduct();
-  else if (name === 'gtm') renderGTM();
+  else if (name === 'docs') renderDocs();
   else if (name === 'maya') renderMaya();
+}
+
+// ── DOCS TAB ──
+let currentDocsTopic = 'all';
+
+function renderDocs() {
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
+    <div style="background:var(--navy);padding:16px 16px 14px;color:white">
+      <div style="font-size:17px;font-weight:800">📚 Docs</div>
+      <div style="font-size:12px;opacity:0.6;margin-top:2px">公司知识库 · ${ALL_DOCS.length} 篇文档</div>
+    </div>
+    <div class="filter-row" style="padding:10px 12px 4px;gap:8px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch">
+      <div class="chip active" onclick="filterDocs('all',this)">全部</div>
+      ${DOCS_TOPICS.map(t => `<div class="chip" onclick="filterDocs('${t.id}',this)">${t.label}</div>`).join('')}
+    </div>
+    <div class="card-list" style="padding:8px 12px 80px" id="docs-list"></div>`;
+  renderDocsList('all');
+}
+
+function filterDocs(topicId, el) {
+  document.querySelectorAll('.filter-row .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentDocsTopic = topicId;
+  renderDocsList(topicId);
+}
+
+function renderDocsList(topicId) {
+  const list = document.getElementById('docs-list');
+  let docs;
+  if (topicId === 'all') {
+    // 按主题分组展示
+    list.innerHTML = DOCS_TOPICS.map(topic => `
+      <div style="margin-bottom:4px">
+        <div style="font-size:12px;font-weight:700;color:var(--muted);padding:12px 2px 6px;text-transform:uppercase;letter-spacing:0.5px">${topic.label}</div>
+        ${topic.docs.map(d => docCardHTML(d)).join('')}
+      </div>
+    `).join('');
+    // 绑定点击
+    let allDocs = DOCS_TOPICS.flatMap(t => t.docs);
+    list.querySelectorAll('.doc-card').forEach((el, i) => {
+      el.onclick = () => openArticle(allDocs[i].file, allDocs[i].name);
+    });
+  } else {
+    const topic = DOCS_TOPICS.find(t => t.id === topicId);
+    docs = topic ? topic.docs : [];
+    list.innerHTML = docs.map(d => docCardHTML(d)).join('');
+    list.querySelectorAll('.doc-card').forEach((el, i) => {
+      el.onclick = () => openArticle(docs[i].file, docs[i].name);
+    });
+  }
 }
 
 // Init
