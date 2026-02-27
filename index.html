@@ -268,11 +268,12 @@ html, body {
 .status-badge {
   padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
 }
-.status-active { background: #D1FAE5; color: #065F46; }
 .status-lead { background: #FEF3C7; color: #92400E; }
-.status-demo { background: #E0E7FF; color: #3730A3; }
-.status-discovery { background: #FFF7ED; color: #C2410C; }
 .status-prospect { background: #F3F4F6; color: #6B7280; }
+.status-discovery { background: #E0E7FF; color: #3730A3; }
+.status-setup { background: #FDE8FF; color: #7C3AED; }
+.status-pilot { background: #DBEAFE; color: #1D4ED8; }
+.status-client { background: #D1FAE5; color: #065F46; }
 
 .client-metrics {
   display: flex; border-top: 1px solid var(--border);
@@ -690,8 +691,8 @@ const CLIENTS = [
     emoji: '🧠',
     industry: 'Neurology / Healthcare',
     location: 'Bay Area, CA',
-    stage: 'active',
-    stageLabel: 'Active',
+    stage: 'pilot',
+    stageLabel: 'Pilot',
     mrr: '—',
     meeting: '3/1',
     nextAction: '2026-03-01 17:00 · 初步会议',
@@ -700,14 +701,15 @@ const CLIENTS = [
     revenue: 'TBD',
     setupFee: 'TBD',
     monthlyFee: 'TBD',
-    painPoints: ['协调电话占用大量时间', '分包商管理复杂', '客户更新不及时'],
+    painPoints: ['需求待发现访谈确认'],
     timeline: [
       { title: '首次接触', date: '2026-02-14', status: 'done' },
       { title: '初步会议', date: '2026-03-01', status: 'next' },
-      { title: '发现访谈', date: '待定', status: 'future' },
-      { title: 'Maya 试点', date: '待定', status: 'future' },
+      { title: 'Discovery', date: '待定', status: 'future' },
+      { title: 'Setup', date: '待定', status: 'future' },
+      { title: 'Pilot', date: '待定', status: 'future' },
     ],
-    notes: 'Client 001 · Pilot 客户'
+    notes: 'Client 001 · 首个 Pilot 客户'
   },
   {
     id: '002',
@@ -717,16 +719,16 @@ const CLIENTS = [
     emoji: '🏗️',
     industry: 'General Contractor',
     location: 'Bay Area, CA',
-    stage: 'demo',
-    stageLabel: 'Demo',
+    stage: 'discovery',
+    stageLabel: 'Discovery',
     mrr: '—',
     meeting: '3/3',
     nextAction: '2026-03-03 · 线下见面 (Edwin Li)',
     contact: 'Edwin Li (CEO)',
     teamSize: '20人',
     revenue: '$5M-$20M/yr',
-    setupFee: '$3,000',
-    monthlyFee: '$2,000',
+    setupFee: '$0（Freemake）',
+    monthlyFee: '$2,000-3,500',
     painPoints: [
       '每天 30-50 通协调电话，占用 4-6 小时',
       '分包商日程确认反复沟通',
@@ -735,91 +737,121 @@ const CLIENTS = [
     timeline: [
       { title: '发现目标', date: '2026-02-26', status: 'done' },
       { title: '初次联系', date: '2026-02-26', status: 'done' },
-      { title: '线下见面', date: '2026-03-03', status: 'next' },
-      { title: '免费建网站（Discovery）', date: '待定', status: 'future' },
-      { title: 'Maya 试点', date: '待定', status: 'future' },
+      { title: 'Discovery 线下见面', date: '2026-03-03', status: 'next' },
+      { title: '发一页纸方案', date: '2026-03-03', status: 'future' },
+      { title: 'Setup（建系统）', date: '待定', status: 'future' },
+      { title: 'Pilot（30天）', date: '待定', status: 'future' },
     ],
     notes: '华裔 GC，做了 20 年，高端住宅，Palo Alto/Saratoga 区域'
   },
   {
     id: '003',
-    name: 'Valley Plumbing Co.',
-    shortname: 'VP',
+    name: '小语',
+    shortname: 'XY',
     avatarClass: 'avatar-blue',
-    emoji: '🔧',
-    industry: 'Plumbing / Home Service',
-    location: 'Dallas-Fort Worth, TX',
+    emoji: '🏠',
+    industry: 'Real Estate Agent',
+    location: 'Bay Area, CA',
     stage: 'lead',
     stageLabel: 'Lead',
     mrr: '—',
     meeting: '—',
-    nextAction: 'Facebook 群组接触中，待回复',
-    contact: 'Mike Rodriguez',
-    teamSize: '12人',
-    revenue: '$2M-$5M/yr',
-    setupFee: '$3,000',
-    monthlyFee: '$1,500',
+    nextAction: '约 Discovery Call，确认工具名称',
+    contact: '小语',
+    teamSize: '1人',
+    revenue: '—',
+    setupFee: '$0（Freemake）',
+    monthlyFee: '$500-1,000',
     painPoints: [
-      '紧急派工电话 24/7，无法全接',
-      '调度混乱导致漏单',
-      '客户投诉响应慢',
+      '买房侧：自动推荐房源、安排 Open House、确认看房时间',
+      '卖房侧：探房登记自动转 lead',
+      '现用工具贵（$1,500-1,000/月），效果待验证',
     ],
     timeline: [
-      { title: 'Google Maps 发现', date: '2026-02-25', status: 'done' },
-      { title: 'Facebook 冷外联', date: '2026-02-26', status: 'next' },
-      { title: '发现访谈', date: '待定', status: 'future' },
+      { title: '首次见面', date: '2026-02-27', status: 'done' },
+      { title: 'Discovery Call', date: '待定', status: 'next' },
+      { title: '一页纸方案', date: '待定', status: 'future' },
+      { title: 'Setup', date: '待定', status: 'future' },
     ],
-    notes: 'Google 评分 3.8，差评关键词：slow response, hard to reach'
+    notes: '2026-02-27 Kelvin 见面介绍 · 预算 $500-1,000/月'
   },
   {
     id: '004',
-    name: 'TechFlow Engineering',
-    shortname: 'TF',
+    name: '邱涵',
+    shortname: 'QH',
     avatarClass: 'avatar-purple',
-    emoji: '⚡',
-    industry: 'Software Engineering',
+    emoji: '📦',
+    industry: '跨境供应链',
+    location: 'Bay Area, CA',
+    stage: 'prospect',
+    stageLabel: 'Prospect',
+    mrr: '—',
+    meeting: '3月初',
+    nextAction: '三月初跟进，约 Discovery Call',
+    contact: '邱涵',
+    teamSize: '小团队',
+    revenue: '—',
+    setupFee: '$0（Freemake）',
+    monthlyFee: 'TBD',
+    painPoints: [
+      '有软件开发需求，用印度外包，时差痛苦（凌晨 1:30 开会）',
+      '需要客户关系管理：接询价、跟进、协调国内供应商',
+    ],
+    timeline: [
+      { title: '首次接触', date: '2026-02-19', status: 'done' },
+      { title: 'Discovery Call', date: '2026-03-初', status: 'next' },
+    ],
+    notes: '前 Webox SMB 销售，帮美国客户对接国内供应商'
+  },
+  {
+    id: '005',
+    name: '吉松',
+    shortname: 'JS',
+    avatarClass: 'avatar-green',
+    emoji: '🚀',
+    industry: 'SF 创业',
     location: 'San Francisco, CA',
     stage: 'lead',
     stageLabel: 'Lead',
     mrr: '—',
     meeting: '—',
-    nextAction: '曲凯线 inbound，待安排工程诊断',
-    contact: 'Sarah Chen (CTO)',
-    teamSize: '35人',
-    revenue: '$10M+ ARR',
-    setupFee: '$5,000',
-    monthlyFee: '$3,000',
-    painPoints: [
-      '工程团队 AI 工具使用零散，没有体系',
-      '代码 review 耗时，PR 积压',
-      '需求到上线周期 2-3 周',
-    ],
+    nextAction: '保持联系，观察合作机会',
+    contact: '吉松',
+    teamSize: '—',
+    revenue: '—',
+    setupFee: '—',
+    monthlyFee: '—',
+    painPoints: [],
     timeline: [
-      { title: '42章经 inbound', date: '2026-03-xx', status: 'future' },
-      { title: '免费工程诊断 1h', date: '待定', status: 'future' },
-      { title: 'AI-native 改造方案', date: '待定', status: 'future' },
+      { title: '首次交流', date: '2026-02-19', status: 'done' },
     ],
-    notes: '曲凯线潜在客户 · Engineering 垂直'
+    notes: '前 Aponis，在 SF 创业 · 人脉/资源对接'
   },
 ];
 
-const STAGE_ORDER = ['active','demo','lead','prospect'];
+const STAGE_ORDER = ['client','pilot','setup','discovery','prospect','lead'];
 
 let currentClientFilter = 'all';
 
 function renderClients() {
   const area = document.getElementById('content-area');
   const leads = CLIENTS.filter(c => c.stage === 'lead').length;
-  const demos = CLIENTS.filter(c => c.stage === 'demo').length;
-  const active = CLIENTS.filter(c => c.stage === 'active').length;
+  const prospects = CLIENTS.filter(c => c.stage === 'prospect').length;
+  const discoveries = CLIENTS.filter(c => c.stage === 'discovery').length;
+  const setups = CLIENTS.filter(c => c.stage === 'setup').length;
+  const pilots = CLIENTS.filter(c => c.stage === 'pilot').length;
+  const actives = CLIENTS.filter(c => c.stage === 'client').length;
   const mrr = CLIENTS.filter(c => c.mrr !== '—').reduce((s,c) => s + (parseInt(c.mrr)||0), 0);
 
   area.innerHTML = `
     <div class="pipeline-stages">
       <div class="stage-chip active" onclick="filterClients('all',this)">全部 ${CLIENTS.length}</div>
-      <div class="stage-chip" onclick="filterClients('lead',this)">Leads ${leads}</div>
-      <div class="stage-chip" onclick="filterClients('demo',this)">Demo ${demos}</div>
-      <div class="stage-chip" onclick="filterClients('active',this)">Active ${active}</div>
+      <div class="stage-chip" onclick="filterClients('lead',this)">Lead ${leads}</div>
+      <div class="stage-chip" onclick="filterClients('prospect',this)">Prospect ${prospects}</div>
+      <div class="stage-chip" onclick="filterClients('discovery',this)">Discovery ${discoveries}</div>
+      <div class="stage-chip" onclick="filterClients('setup',this)">Setup ${setups}</div>
+      <div class="stage-chip" onclick="filterClients('pilot',this)">Pilot ${pilots}</div>
+      <div class="stage-chip" onclick="filterClients('client',this)">Client ${actives}</div>
     </div>
 
     <div style="padding: 12px 12px 4px">
@@ -829,12 +861,12 @@ function renderClients() {
           <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">LEADS</div>
         </div>
         <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
-          <div style="font-size:22px;font-weight:800;color:var(--blue)">${demos}</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">DEMO</div>
+          <div style="font-size:22px;font-weight:800;color:var(--blue)">${discoveries}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">DISCOVERY</div>
         </div>
         <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
-          <div style="font-size:22px;font-weight:800;color:var(--green)">${active}</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">ACTIVE</div>
+          <div style="font-size:22px;font-weight:800;color:var(--green)">${pilots}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">PILOT</div>
         </div>
         <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
           <div style="font-size:22px;font-weight:800;color:var(--navy)">${mrr ? '$'+mrr.toLocaleString() : '$0'}</div>
