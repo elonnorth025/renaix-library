@@ -702,159 +702,26 @@ async function renderHome() {
 }
 
 // ── CLIENTS ──
-// ── CLIENT DATA ──
-const CLIENTS = [
-  {
-    id: '001',
-    name: 'Supra Neuro',
-    shortname: 'SN',
-    avatarClass: 'avatar-navy',
-    emoji: '🧠',
-    industry: 'Neurology / Healthcare',
-    location: 'Bay Area, CA',
-    stage: 'pilot',
-    stageLabel: 'Pilot',
-    mrr: '—',
-    meeting: '3/1',
-    nextAction: '2026-03-01 17:00 · 初步会议',
-    contact: 'TBD',
-    teamSize: 'TBD',
-    revenue: 'TBD',
-    setupFee: 'TBD',
-    monthlyFee: 'TBD',
-    painPoints: ['需求待发现访谈确认'],
-    timeline: [
-      { title: '首次接触', date: '2026-02-14', status: 'done' },
-      { title: '初步会议', date: '2026-03-01', status: 'next' },
-      { title: 'Discovery', date: '待定', status: 'future' },
-      { title: 'Setup', date: '待定', status: 'future' },
-      { title: 'Pilot', date: '待定', status: 'future' },
-    ],
-    notes: 'Client 001 · 首个 Pilot 客户'
-  },
-  {
-    id: '002',
-    name: 'Square Builders',
-    shortname: 'SB',
-    avatarClass: 'avatar-orange',
-    emoji: '🏗️',
-    industry: 'General Contractor',
-    location: 'Bay Area, CA',
-    stage: 'discovery',
-    stageLabel: 'Discovery',
-    mrr: '—',
-    meeting: '3/3',
-    nextAction: '2026-03-03 · 线下见面 (Edwin Li)',
-    contact: 'Edwin Li (CEO)',
-    teamSize: '20人',
-    revenue: '$5M-$20M/yr',
-    setupFee: '$0（Freemake）',
-    monthlyFee: '$2,000-3,500',
-    painPoints: [
-      '每天 30-50 通协调电话，占用 4-6 小时',
-      '分包商日程确认反复沟通',
-      '业主进度更新不及时，投诉多',
-    ],
-    timeline: [
-      { title: '发现目标', date: '2026-02-26', status: 'done' },
-      { title: '初次联系', date: '2026-02-26', status: 'done' },
-      { title: 'Discovery 线下见面', date: '2026-03-03', status: 'next' },
-      { title: '发一页纸方案', date: '2026-03-03', status: 'future' },
-      { title: 'Setup（建系统）', date: '待定', status: 'future' },
-      { title: 'Pilot（30天）', date: '待定', status: 'future' },
-    ],
-    notes: '华裔 GC，做了 20 年，高端住宅，Palo Alto/Saratoga 区域'
-  },
-  {
-    id: '003',
-    name: '小语',
-    shortname: 'XY',
-    avatarClass: 'avatar-blue',
-    emoji: '🏠',
-    industry: 'Real Estate Agent',
-    location: 'Bay Area, CA',
-    stage: 'lead',
-    stageLabel: 'Lead',
-    mrr: '—',
-    meeting: '—',
-    nextAction: '约 Discovery Call，确认工具名称',
-    contact: '小语',
-    teamSize: '1人',
-    revenue: '—',
-    setupFee: '$0（Freemake）',
-    monthlyFee: '$500-1,000',
-    painPoints: [
-      '买房侧：自动推荐房源、安排 Open House、确认看房时间',
-      '卖房侧：探房登记自动转 lead',
-      '现用工具贵（$1,500-1,000/月），效果待验证',
-    ],
-    timeline: [
-      { title: '首次见面', date: '2026-02-27', status: 'done' },
-      { title: 'Discovery Call', date: '待定', status: 'next' },
-      { title: '一页纸方案', date: '待定', status: 'future' },
-      { title: 'Setup', date: '待定', status: 'future' },
-    ],
-    notes: '2026-02-27 Kelvin 见面介绍 · 预算 $500-1,000/月'
-  },
-  {
-    id: '004',
-    name: '邱涵',
-    shortname: 'QH',
-    avatarClass: 'avatar-purple',
-    emoji: '📦',
-    industry: '跨境供应链',
-    location: 'Bay Area, CA',
-    stage: 'prospect',
-    stageLabel: 'Prospect',
-    mrr: '—',
-    meeting: '3月初',
-    nextAction: '三月初跟进，约 Discovery Call',
-    contact: '邱涵',
-    teamSize: '小团队',
-    revenue: '—',
-    setupFee: '$0（Freemake）',
-    monthlyFee: 'TBD',
-    painPoints: [
-      '有软件开发需求，用印度外包，时差痛苦（凌晨 1:30 开会）',
-      '需要客户关系管理：接询价、跟进、协调国内供应商',
-    ],
-    timeline: [
-      { title: '首次接触', date: '2026-02-19', status: 'done' },
-      { title: 'Discovery Call', date: '2026-03-初', status: 'next' },
-    ],
-    notes: '前 Webox SMB 销售，帮美国客户对接国内供应商'
-  },
-  {
-    id: '005',
-    name: '吉松',
-    shortname: 'JS',
-    avatarClass: 'avatar-green',
-    emoji: '🚀',
-    industry: 'SF 创业',
-    location: 'San Francisco, CA',
-    stage: 'lead',
-    stageLabel: 'Lead',
-    mrr: '—',
-    meeting: '—',
-    nextAction: '保持联系，观察合作机会',
-    contact: '吉松',
-    teamSize: '—',
-    revenue: '—',
-    setupFee: '—',
-    monthlyFee: '—',
-    painPoints: [],
-    timeline: [
-      { title: '首次交流', date: '2026-02-19', status: 'done' },
-    ],
-    notes: '前 Aponis，在 SF 创业 · 人脉/资源对接'
-  },
-];
+// 客户数据从 pipeline/clients.json 动态加载，不在此处硬编码
+// 如需新增/修改客户，只需编辑 pipeline/clients.json
 
+let CLIENTS = [];
 const STAGE_ORDER = ['client','pilot','setup','discovery','prospect','lead'];
+
+async function loadClients() {
+  try {
+    const res = await fetch('pipeline/clients.json?v=' + Date.now());
+    CLIENTS = await res.json();
+  } catch(e) {
+    CLIENTS = [];
+    console.warn('Failed to load clients.json', e);
+  }
+}
 
 let currentClientFilter = 'all';
 
-function renderClients() {
+async function renderClients() {
+  await loadClients();
   const area = document.getElementById('content-area');
   const leads = CLIENTS.filter(c => c.stage === 'lead').length;
   const prospects = CLIENTS.filter(c => c.stage === 'prospect').length;
@@ -940,10 +807,12 @@ function filterClients(stage, el) {
   renderClientList(stage);
 }
 
-function openClientDetail(id) {
+async function openClientDetail(id) {
   const c = CLIENTS.find(x => x.id === id);
   if (!c) return;
   const area = document.getElementById('content-area');
+
+  // 顶部 header（来自 JSON 的核心字段）
   area.innerHTML = `
     <div class="detail-hero">
       <div class="detail-back" onclick="renderClients()">← 返回客户列表</div>
@@ -956,8 +825,7 @@ function openClientDetail(id) {
       </div>
       <div class="detail-badges">
         <div class="detail-badge orange">${c.stageLabel}</div>
-        <div class="detail-badge">Client ${c.id}</div>
-        <div class="detail-badge">${c.location.split(',')[1]?.trim() || c.location}</div>
+        <div class="detail-badge">#${c.id}</div>
       </div>
     </div>
 
@@ -967,79 +835,41 @@ function openClientDetail(id) {
         <div class="detail-kpi-label">MRR</div>
       </div>
       <div class="detail-kpi">
-        <div class="detail-kpi-val">${c.setupFee}</div>
-        <div class="detail-kpi-label">Setup</div>
-      </div>
-      <div class="detail-kpi">
         <div class="detail-kpi-val">${c.monthlyFee}</div>
-        <div class="detail-kpi-label">月费</div>
+        <div class="detail-kpi-label">目标月费</div>
       </div>
       <div class="detail-kpi">
-        <div class="detail-kpi-val">${c.teamSize}</div>
-        <div class="detail-kpi-label">团队</div>
+        <div class="detail-kpi-val">${c.meeting || '—'}</div>
+        <div class="detail-kpi-label">会议</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="detail-kpi-val">${c.contact || '—'}</div>
+        <div class="detail-kpi-label">联系人</div>
       </div>
     </div>
 
-    <div style="height:16px"></div>
-
-    <div class="detail-section">
-      <div class="detail-section-title">联系人</div>
-      <div class="detail-card">
-        <div class="detail-row">
-          <div class="detail-row-label">联系人</div>
-          <div class="detail-row-val">${c.contact}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-row-label">规模</div>
-          <div class="detail-row-val">${c.teamSize}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-row-label">年收入</div>
-          <div class="detail-row-val">${c.revenue}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-row-label">备注</div>
-          <div class="detail-row-val" style="color:var(--muted);font-weight:400">${c.notes}</div>
-        </div>
-      </div>
+    <div style="background:var(--orange-light);border-left:3px solid var(--orange);padding:12px 14px;margin:12px 12px 0;border-radius:0 10px 10px 0;font-size:13px;color:var(--navy);font-weight:500">
+      <span style="font-size:10px;font-weight:700;color:var(--orange);display:block;margin-bottom:4px">NEXT →</span>
+      ${c.nextAction}
     </div>
 
-    <div class="detail-section">
-      <div class="detail-section-title">核心痛点</div>
-      <div class="detail-card">
-        ${c.painPoints.map((p,i) => `
-          <div class="pain-item">
-            <div class="pain-num">${i+1}</div>
-            <div class="pain-text">${p}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="detail-section">
-      <div class="detail-section-title">跟进时间线</div>
-      <div class="detail-card">
-        ${c.timeline.map(t => `
-          <div class="timeline-item">
-            <div class="timeline-dot tl-${t.status}"></div>
-            <div class="timeline-content">
-              <div class="timeline-title" style="color:${t.status==='future'?'var(--muted)':'var(--text)'}">${t.title}</div>
-              <div class="timeline-date">${t.date}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="detail-section" style="margin-bottom:100px">
-      <div class="detail-section-title">下一步行动</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <button class="action-btn btn-primary">📞 记录跟进</button>
-        <button class="action-btn btn-secondary">📄 查看文档</button>
-      </div>
+    <div style="padding:16px 12px 8px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">详细资料</div>
+    <div id="client-md-body" style="padding:0 16px 100px;font-size:14px;line-height:1.7;color:var(--text)">
+      <div style="color:var(--muted);font-size:13px">加载中…</div>
     </div>
   `;
   area.scrollTop = 0;
+
+  // 读取对应的 .md 文件渲染详细内容
+  if (c.file) {
+    try {
+      const res = await fetch(c.file + '?v=' + Date.now());
+      const md = await res.text();
+      document.getElementById('client-md-body').innerHTML = marked.parse(md);
+    } catch(e) {
+      document.getElementById('client-md-body').innerHTML = '<div style="color:var(--muted)">文件加载失败</div>';
+    }
+  }
 }
 
 // ── PRODUCT ──
