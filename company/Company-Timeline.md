@@ -2,6 +2,44 @@
 
 > 公司大事记
 
+## 2026-02-27: 夜间研究（00:30 AM）
+
+> 董事长休息，Maya 夜间 cron 任务执行。
+> 当前阶段：GTM 执行期——Freemake 模式落地 + 首个外部会议筹备。
+
+**白天核心进展：**
+
+### Freemake 模式确立
+- **核心定位：**「AI CTO，免费建，用了再付」
+- **统一漏斗：** LEADS → DISCOVERY（免费）→ SETUP $3,000 → RETAINER $2,000/月
+- **商业逻辑：** 用服务换信任，用信任换付费。降低决策门槛，让 GC 先看到价值再付钱
+
+### Renaix Studio 品牌整合
+- GC线（行业垂直：德克萨斯 GC 市场）+ 曲凯线（Engineering 团队垂直）合并为 **Renaix Studio**
+- 两条线共用同一套 Freemake 漏斗，但客户画像不同
+
+### 关键会议安排
+- **Edwin Li 下周二约定**：外部第一次见面，用「软件定制」语言描述，准备网站 mockup 或 Maya demo
+- 目标：验证 Freemake 话术有效性，争取第一个付费 Pilot 合同
+
+### 曲凯合作策略定稿
+- 先有案例再谈，四月见面为主
+- 考虑引荐分成模式（A型），暂不深度绑定
+- 不提前承诺资源，以案例证明价值后再深入
+
+### Maya Bot 技术进展
+- Stack：Python + python-telegram-bot + Supabase + Claude
+- Supabase 项目：`zenksfchtfxtsurnyeud`，schema 已 push
+- 状态：bot 框架可跑，Supabase ✅，Telegram ✅
+- **卡点：** Anthropic API key 401 错误（需换新 key）
+
+**本夜研究产出：**
+- 文件：`gtm/2026-02-27-GC免费Pilot设计与转化率优化.md`
+- 文件：`company/2026-02-27-创始人如何用Freemake模式快速验证市场.md`
+- Ideas 深化：`GC-沟通协调-AI员工团队.md` 追加 Freemake 适配性分析
+
+---
+
 ## 2026-02-26: 夜间研究（00:30 AM）
 
 > 董事长休息，Maya 夜间 cron 任务执行。
