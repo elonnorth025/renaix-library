@@ -234,47 +234,155 @@ html, body {
 }
 .stage-chip.active { background: var(--navy); color: white; border-color: var(--navy); }
 
+/* ─── CLIENT CARDS ─── */
 .client-card {
   background: var(--card); border-radius: var(--radius);
   margin: 0 12px 10px; overflow: hidden;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
 }
+.client-card:active { transform: scale(0.98); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .client-card-header {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 14px 10px;
 }
 .client-avatar {
-  width: 44px; height: 44px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--navy), #2d5a94);
+  width: 48px; height: 48px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
+  font-size: 22px; flex-shrink: 0; font-weight: 700;
+  color: white; letter-spacing: -0.5px;
 }
+.avatar-navy { background: linear-gradient(135deg, #1E3A5F, #2d5a94); }
+.avatar-orange { background: linear-gradient(135deg, #F97316, #fb923c); }
+.avatar-green { background: linear-gradient(135deg, #059669, #10b981); }
+.avatar-purple { background: linear-gradient(135deg, #7c3aed, #8B5CF6); }
+.avatar-blue { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+.avatar-red { background: linear-gradient(135deg, #dc2626, #ef4444); }
+
+.client-info { flex: 1; min-width: 0; }
 .client-name { font-size: 15px; font-weight: 700; }
-.client-stage { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.client-status { margin-left: auto; }
+.client-meta { font-size: 11px; color: var(--muted); margin-top: 2px; display: flex; gap: 6px; align-items: center; }
+.client-meta-dot { color: var(--border); }
+.client-status { margin-left: auto; flex-shrink: 0; }
+
 .status-badge {
   padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
 }
 .status-active { background: #D1FAE5; color: #065F46; }
 .status-lead { background: #FEF3C7; color: #92400E; }
 .status-demo { background: #E0E7FF; color: #3730A3; }
+.status-discovery { background: #FFF7ED; color: #C2410C; }
+.status-prospect { background: #F3F4F6; color: #6B7280; }
 
 .client-metrics {
-  display: flex; gap: 0; border-top: 1px solid var(--border);
+  display: flex; border-top: 1px solid var(--border);
 }
 .metric-cell {
-  flex: 1; padding: 10px 12px; text-align: center;
+  flex: 1; padding: 10px 8px; text-align: center;
   border-right: 1px solid var(--border);
 }
 .metric-cell:last-child { border-right: none; }
-.metric-val { font-size: 15px; font-weight: 700; color: var(--navy); }
-.metric-key { font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+.metric-val { font-size: 14px; font-weight: 700; color: var(--navy); }
+.metric-key { font-size: 9px; color: var(--muted); margin-top: 2px; font-weight: 600; letter-spacing: 0.3px; }
 
 .client-next {
-  padding: 10px 14px 12px; display: flex; align-items: center; gap: 8px;
+  padding: 9px 14px 11px; display: flex; align-items: center; gap: 8px;
+  background: #FFFBF5; border-top: 1px solid #FED7AA;
 }
-.next-label { font-size: 11px; font-weight: 700; color: var(--orange); }
+.next-label { font-size: 10px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.5px; }
 .next-text { font-size: 12px; color: var(--text); }
+
+/* ─── CLIENT DETAIL ─── */
+.detail-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #2d5a94 100%);
+  padding: 20px 16px 24px; color: white; position: relative;
+}
+.detail-back {
+  display: flex; align-items: center; gap: 6px; font-size: 13px;
+  color: rgba(255,255,255,0.7); margin-bottom: 16px; cursor: pointer;
+}
+.detail-back:active { opacity: 0.7; }
+.detail-hero-top { display: flex; align-items: center; gap: 14px; }
+.detail-avatar-lg {
+  width: 64px; height: 64px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0; background: rgba(255,255,255,0.15);
+}
+.detail-title { font-size: 22px; font-weight: 800; }
+.detail-subtitle { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 3px; }
+.detail-badges { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.detail-badge {
+  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  background: rgba(255,255,255,0.15); color: white;
+}
+.detail-badge.orange { background: var(--orange); }
+
+.detail-kpis {
+  display: flex; gap: 0; background: white;
+  border-radius: 14px; margin: -14px 16px 0; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.detail-kpi {
+  flex: 1; padding: 14px 8px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.detail-kpi:last-child { border-right: none; }
+.detail-kpi-val { font-size: 18px; font-weight: 800; color: var(--navy); }
+.detail-kpi-label { font-size: 9px; color: var(--muted); margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.detail-section { margin: 20px 16px 0; }
+.detail-section-title {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px;
+}
+.detail-card {
+  background: var(--card); border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06); overflow: hidden;
+}
+.detail-row {
+  display: flex; align-items: center; padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-row-label { font-size: 12px; color: var(--muted); width: 90px; flex-shrink: 0; }
+.detail-row-val { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+
+.pain-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+}
+.pain-item:last-child { border-bottom: none; }
+.pain-num {
+  width: 22px; height: 22px; border-radius: 8px;
+  background: var(--orange-light); color: var(--orange);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pain-text { font-size: 13px; color: var(--text); line-height: 1.5; padding-top: 2px; }
+
+.timeline-item {
+  display: flex; gap: 12px; padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
+}
+.tl-done { background: var(--green); }
+.tl-next { background: var(--orange); }
+.tl-future { background: var(--border); }
+.timeline-content { flex: 1; }
+.timeline-title { font-size: 13px; font-weight: 600; }
+.timeline-date { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.action-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px; border-radius: 14px; font-size: 14px; font-weight: 700;
+  border: none; cursor: pointer; width: 100%; transition: opacity 0.15s;
+}
+.action-btn:active { opacity: 0.8; }
+.btn-primary { background: var(--orange); color: white; }
+.btn-secondary { background: var(--card); color: var(--navy); border: 1.5px solid var(--border); }
 
 .empty-state {
   text-align: center; padding: 40px 24px; color: var(--muted);
@@ -572,73 +680,313 @@ async function renderHome() {
 }
 
 // ── CLIENTS ──
+// ── CLIENT DATA ──
+const CLIENTS = [
+  {
+    id: '001',
+    name: 'Supra Neuro',
+    shortname: 'SN',
+    avatarClass: 'avatar-navy',
+    emoji: '🧠',
+    industry: 'Neurology / Healthcare',
+    location: 'Bay Area, CA',
+    stage: 'active',
+    stageLabel: 'Active',
+    mrr: '—',
+    meeting: '3/1',
+    nextAction: '2026-03-01 17:00 · 初步会议',
+    contact: 'TBD',
+    teamSize: 'TBD',
+    revenue: 'TBD',
+    setupFee: 'TBD',
+    monthlyFee: 'TBD',
+    painPoints: ['协调电话占用大量时间', '分包商管理复杂', '客户更新不及时'],
+    timeline: [
+      { title: '首次接触', date: '2026-02-14', status: 'done' },
+      { title: '初步会议', date: '2026-03-01', status: 'next' },
+      { title: '发现访谈', date: '待定', status: 'future' },
+      { title: 'Maya 试点', date: '待定', status: 'future' },
+    ],
+    notes: 'Client 001 · Pilot 客户'
+  },
+  {
+    id: '002',
+    name: 'Square Builders',
+    shortname: 'SB',
+    avatarClass: 'avatar-orange',
+    emoji: '🏗️',
+    industry: 'General Contractor',
+    location: 'Bay Area, CA',
+    stage: 'demo',
+    stageLabel: 'Demo',
+    mrr: '—',
+    meeting: '3/3',
+    nextAction: '2026-03-03 · 线下见面 (Edwin Li)',
+    contact: 'Edwin Li (CEO)',
+    teamSize: '20人',
+    revenue: '$5M-$20M/yr',
+    setupFee: '$3,000',
+    monthlyFee: '$2,000',
+    painPoints: [
+      '每天 30-50 通协调电话，占用 4-6 小时',
+      '分包商日程确认反复沟通',
+      '业主进度更新不及时，投诉多',
+    ],
+    timeline: [
+      { title: '发现目标', date: '2026-02-26', status: 'done' },
+      { title: '初次联系', date: '2026-02-26', status: 'done' },
+      { title: '线下见面', date: '2026-03-03', status: 'next' },
+      { title: '免费建网站（Discovery）', date: '待定', status: 'future' },
+      { title: 'Maya 试点', date: '待定', status: 'future' },
+    ],
+    notes: '华裔 GC，做了 20 年，高端住宅，Palo Alto/Saratoga 区域'
+  },
+  {
+    id: '003',
+    name: 'Valley Plumbing Co.',
+    shortname: 'VP',
+    avatarClass: 'avatar-blue',
+    emoji: '🔧',
+    industry: 'Plumbing / Home Service',
+    location: 'Dallas-Fort Worth, TX',
+    stage: 'lead',
+    stageLabel: 'Lead',
+    mrr: '—',
+    meeting: '—',
+    nextAction: 'Facebook 群组接触中，待回复',
+    contact: 'Mike Rodriguez',
+    teamSize: '12人',
+    revenue: '$2M-$5M/yr',
+    setupFee: '$3,000',
+    monthlyFee: '$1,500',
+    painPoints: [
+      '紧急派工电话 24/7，无法全接',
+      '调度混乱导致漏单',
+      '客户投诉响应慢',
+    ],
+    timeline: [
+      { title: 'Google Maps 发现', date: '2026-02-25', status: 'done' },
+      { title: 'Facebook 冷外联', date: '2026-02-26', status: 'next' },
+      { title: '发现访谈', date: '待定', status: 'future' },
+    ],
+    notes: 'Google 评分 3.8，差评关键词：slow response, hard to reach'
+  },
+  {
+    id: '004',
+    name: 'TechFlow Engineering',
+    shortname: 'TF',
+    avatarClass: 'avatar-purple',
+    emoji: '⚡',
+    industry: 'Software Engineering',
+    location: 'San Francisco, CA',
+    stage: 'lead',
+    stageLabel: 'Lead',
+    mrr: '—',
+    meeting: '—',
+    nextAction: '曲凯线 inbound，待安排工程诊断',
+    contact: 'Sarah Chen (CTO)',
+    teamSize: '35人',
+    revenue: '$10M+ ARR',
+    setupFee: '$5,000',
+    monthlyFee: '$3,000',
+    painPoints: [
+      '工程团队 AI 工具使用零散，没有体系',
+      '代码 review 耗时，PR 积压',
+      '需求到上线周期 2-3 周',
+    ],
+    timeline: [
+      { title: '42章经 inbound', date: '2026-03-xx', status: 'future' },
+      { title: '免费工程诊断 1h', date: '待定', status: 'future' },
+      { title: 'AI-native 改造方案', date: '待定', status: 'future' },
+    ],
+    notes: '曲凯线潜在客户 · Engineering 垂直'
+  },
+];
+
+const STAGE_ORDER = ['active','demo','lead','prospect'];
+
+let currentClientFilter = 'all';
+
 function renderClients() {
   const area = document.getElementById('content-area');
+  const leads = CLIENTS.filter(c => c.stage === 'lead').length;
+  const demos = CLIENTS.filter(c => c.stage === 'demo').length;
+  const active = CLIENTS.filter(c => c.stage === 'active').length;
+  const mrr = CLIENTS.filter(c => c.mrr !== '—').reduce((s,c) => s + (parseInt(c.mrr)||0), 0);
+
   area.innerHTML = `
     <div class="pipeline-stages">
-      <div class="stage-chip active" onclick="filterClients('all',this)">全部</div>
-      <div class="stage-chip" onclick="filterClients('lead',this)">Leads</div>
-      <div class="stage-chip" onclick="filterClients('demo',this)">Demo</div>
-      <div class="stage-chip" onclick="filterClients('active',this)">Active</div>
-      <div class="stage-chip" onclick="filterClients('closed',this)">Closed</div>
+      <div class="stage-chip active" onclick="filterClients('all',this)">全部 ${CLIENTS.length}</div>
+      <div class="stage-chip" onclick="filterClients('lead',this)">Leads ${leads}</div>
+      <div class="stage-chip" onclick="filterClients('demo',this)">Demo ${demos}</div>
+      <div class="stage-chip" onclick="filterClients('active',this)">Active ${active}</div>
     </div>
 
     <div style="padding: 12px 12px 4px">
-      <div class="section-title" style="padding:0 0 8px">📊 漏斗概览</div>
       <div style="display:flex;gap:8px">
-        <div style="flex:1;background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05)">
-          <div style="font-size:20px;font-weight:800;color:var(--orange)">0</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">LEADS</div>
+        <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
+          <div style="font-size:22px;font-weight:800;color:var(--orange)">${leads}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">LEADS</div>
         </div>
-        <div style="flex:1;background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05)">
-          <div style="font-size:20px;font-weight:800;color:var(--blue)">0</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">DEMO</div>
+        <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
+          <div style="font-size:22px;font-weight:800;color:var(--blue)">${demos}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">DEMO</div>
         </div>
-        <div style="flex:1;background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05)">
-          <div style="font-size:20px;font-weight:800;color:var(--green)">1</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">ACTIVE</div>
+        <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
+          <div style="font-size:22px;font-weight:800;color:var(--green)">${active}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">ACTIVE</div>
         </div>
-        <div style="flex:1;background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05)">
-          <div style="font-size:20px;font-weight:800;color:var(--navy)">$0</div>
-          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px">MRR</div>
+        <div style="flex:1;background:var(--card);border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)">
+          <div style="font-size:22px;font-weight:800;color:var(--navy)">${mrr ? '$'+mrr.toLocaleString() : '$0'}</div>
+          <div style="font-size:10px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.5px">MRR</div>
         </div>
       </div>
     </div>
 
-    <div style="padding: 4px 0" id="client-list">
-      <div class="section-title">🏢 客户档案</div>
-      <div class="client-card" onclick="openArticle('clients/001-supra-neuro/CLIENT.md','Supra Neuro')">
-        <div class="client-card-header">
-          <div class="client-avatar">🧠</div>
-          <div>
-            <div class="client-name">Supra Neuro</div>
-            <div class="client-stage">Client 001 · Pilot</div>
-          </div>
-          <div class="client-status"><span class="status-badge status-active">Active</span></div>
-        </div>
-        <div class="client-metrics">
-          <div class="metric-cell"><div class="metric-val">—</div><div class="metric-key">MRR</div></div>
-          <div class="metric-cell"><div class="metric-val">3/1</div><div class="metric-key">MEETING</div></div>
-          <div class="metric-cell"><div class="metric-val">Pilot</div><div class="metric-key">STAGE</div></div>
-        </div>
-        <div class="client-next">
-          <span class="next-label">NEXT →</span>
-          <span class="next-text">2026-03-01 17:00 · 初步会议</span>
-        </div>
-      </div>
+    <div style="padding: 8px 0 80px" id="client-list"></div>`;
 
-      <div class="section-title" style="margin-top:8px">🔍 Leads Pipeline</div>
-      <div class="empty-state">
-        <div class="empty-icon">🎯</div>
-        <p>还没有 leads</p>
-        <p style="font-size:12px;margin-top:6px">从 DFW GC Facebook 群组开始<br>目标：本周加入 3-5 个群组</p>
+  renderClientList(currentClientFilter);
+}
+
+function renderClientList(filter) {
+  const list = document.getElementById('client-list');
+  const filtered = filter === 'all' ? CLIENTS : CLIENTS.filter(c => c.stage === filter);
+  const sorted = [...filtered].sort((a,b) => STAGE_ORDER.indexOf(a.stage) - STAGE_ORDER.indexOf(b.stage));
+
+  list.innerHTML = sorted.map(c => `
+    <div class="client-card" onclick="openClientDetail('${c.id}')">
+      <div class="client-card-header">
+        <div class="client-avatar ${c.avatarClass}" style="font-size:13px;font-weight:800">${c.shortname}</div>
+        <div class="client-info">
+          <div class="client-name">${c.name}</div>
+          <div class="client-meta">
+            <span>${c.industry}</span>
+            <span class="client-meta-dot">·</span>
+            <span>${c.location.split(',')[0]}</span>
+          </div>
+        </div>
+        <div class="client-status"><span class="status-badge status-${c.stage}">${c.stageLabel}</span></div>
       </div>
-    </div>`;
+      <div class="client-metrics">
+        <div class="metric-cell"><div class="metric-val">${c.mrr === '—' ? '—' : '$'+c.mrr}</div><div class="metric-key">MRR</div></div>
+        <div class="metric-cell"><div class="metric-val">${c.meeting}</div><div class="metric-key">MEETING</div></div>
+        <div class="metric-cell"><div class="metric-val">${c.monthlyFee}</div><div class="metric-key">TARGET</div></div>
+      </div>
+      <div class="client-next">
+        <span class="next-label">NEXT →</span>
+        <span class="next-text">${c.nextAction}</span>
+      </div>
+    </div>
+  `).join('');
 }
 
 function filterClients(stage, el) {
-  document.querySelectorAll('.stage-chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.pipeline-stages .stage-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
+  currentClientFilter = stage;
+  renderClientList(stage);
+}
+
+function openClientDetail(id) {
+  const c = CLIENTS.find(x => x.id === id);
+  if (!c) return;
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
+    <div class="detail-hero">
+      <div class="detail-back" onclick="renderClients()">← 返回客户列表</div>
+      <div class="detail-hero-top">
+        <div class="detail-avatar-lg">${c.emoji}</div>
+        <div>
+          <div class="detail-title">${c.name}</div>
+          <div class="detail-subtitle">${c.industry} · ${c.location}</div>
+        </div>
+      </div>
+      <div class="detail-badges">
+        <div class="detail-badge orange">${c.stageLabel}</div>
+        <div class="detail-badge">Client ${c.id}</div>
+        <div class="detail-badge">${c.location.split(',')[1]?.trim() || c.location}</div>
+      </div>
+    </div>
+
+    <div class="detail-kpis">
+      <div class="detail-kpi">
+        <div class="detail-kpi-val">${c.mrr === '—' ? '—' : '$'+c.mrr}</div>
+        <div class="detail-kpi-label">MRR</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="detail-kpi-val">${c.setupFee}</div>
+        <div class="detail-kpi-label">Setup</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="detail-kpi-val">${c.monthlyFee}</div>
+        <div class="detail-kpi-label">月费</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="detail-kpi-val">${c.teamSize}</div>
+        <div class="detail-kpi-label">团队</div>
+      </div>
+    </div>
+
+    <div style="height:16px"></div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">联系人</div>
+      <div class="detail-card">
+        <div class="detail-row">
+          <div class="detail-row-label">联系人</div>
+          <div class="detail-row-val">${c.contact}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-label">规模</div>
+          <div class="detail-row-val">${c.teamSize}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-label">年收入</div>
+          <div class="detail-row-val">${c.revenue}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-row-label">备注</div>
+          <div class="detail-row-val" style="color:var(--muted);font-weight:400">${c.notes}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">核心痛点</div>
+      <div class="detail-card">
+        ${c.painPoints.map((p,i) => `
+          <div class="pain-item">
+            <div class="pain-num">${i+1}</div>
+            <div class="pain-text">${p}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-section-title">跟进时间线</div>
+      <div class="detail-card">
+        ${c.timeline.map(t => `
+          <div class="timeline-item">
+            <div class="timeline-dot tl-${t.status}"></div>
+            <div class="timeline-content">
+              <div class="timeline-title" style="color:${t.status==='future'?'var(--muted)':'var(--text)'}">${t.title}</div>
+              <div class="timeline-date">${t.date}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="detail-section" style="margin-bottom:100px">
+      <div class="detail-section-title">下一步行动</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="action-btn btn-primary">📞 记录跟进</button>
+        <button class="action-btn btn-secondary">📄 查看文档</button>
+      </div>
+    </div>
+  `;
+  area.scrollTop = 0;
 }
 
 // ── PRODUCT ──
