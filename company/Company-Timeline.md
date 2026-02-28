@@ -2,6 +2,46 @@
 
 > 公司大事记
 
+## 2026-02-28: 夜间研究（00:30 AM）
+
+> 董事长休息，Maya 夜间 cron 任务执行。  
+> 当前阶段：GTM 执行期——Freemake 模式落地 + 外部验证期开启。
+
+**白天核心进展：**
+
+### 新客户接触——小语（独立房产经纪人）
+- **背景：** Kelvin 当日与小语面谈，需求清晰
+- **需求（买房侧）：** 自动推荐房源、安排 Open House、致电 Listing Agent
+- **需求（卖房侧）：** CRM 集成，探房登记自动变 lead
+- **现用工具：** ProTab $1,500/月 + HouseTab $1,000/月（共 $2,500+/月）
+- **预算：** $500-1,000/月
+- **意义：** Real Estate 垂直的第一个潜在 Pilot 客户
+
+### 投资人杨哥反馈（Acropolis）
+- **质疑 1：** AI Agency 难以 Scale，容易变成接单式 Lifestyle Business
+- **质疑 2：** SaaS 加 AI 功能会蚕食 Agency $1k+/月的市场空间
+- **建议出口：** Acqui-hire（卖给大厂）；或聚焦高护城河行业（金融/法律）
+- **内部应对决策：**
+  - 不立即改方向，而是**将质疑转化为战略问题**
+  - 明确 Renaix 的 Scale 路径：Agency（0-6月）→ 垂直标准化产品（6-12月）→ SaaS 化（12-18月）
+  - 将 Acqui-hire 列为备选出口，不作为主要目标
+
+### Edwin Li 会面准备中
+- 下周二见面，Freemake 话术验证机会
+- 准备：网站 mockup 或 Maya 对话演示
+- 目标：第一个 $3,000 Setup 合同
+
+### YC 申请方向研究（Kelvin 指示）
+- Kelvin 背景适配 YC：名校 + Palona AI + 小公司 + AI-native 交付
+- 待建立：YC 研究定期报告 / cron 任务
+
+**本夜研究产出：**
+- 文件：`gtm/2026-02-28-Real-Estate-Agent-GTM-小语验证.md`
+- 文件：`company/2026-02-28-CEO如何应对外部质疑与战略调整信号.md`
+- Ideas 深化：`ideas/房产经纪房源内容获客.md`（评分 6.1 → 7.4，状态 Exploring → Active-Pilot）
+
+---
+
 ## 2026-02-27: 夜间研究（00:30 AM）
 
 > 董事长休息，Maya 夜间 cron 任务执行。
